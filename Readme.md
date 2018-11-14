@@ -1,7 +1,7 @@
 # Личный проект «Пиксель хантер» [![Build status][travis-image]][travis-url]
 
 * Студент: [Александр Рототаев](https://up.htmlacademy.ru/ecmascript/7/user/484805).
-* Наставник: Сергей Вохмянин.
+* Наставник: [Сергей Вохмянин](https://htmlacademy.ru/profile/id530823).
 
 ---
 
