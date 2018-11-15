@@ -14,10 +14,8 @@
   const gameTwo = document.querySelector(`#game-2`);
   const gameThree = document.querySelector(`#game-3`);
   const stats = document.querySelector(`#stats`);
-  const modalError = document.querySelector(`#modal-error`);
-  const modalConfirm = document.querySelector(`#modal-confirm`);
 
-  const screensList = [intro, greeting, rules, gameOne, gameTwo, gameThree, stats, modalError, modalConfirm];
+  const screensList = [intro, greeting, rules, gameOne, gameTwo, gameThree, stats];
 
   let currentScreenNumber = 1;
 
