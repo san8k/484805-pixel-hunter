@@ -2,9 +2,6 @@
 
 (function () {
 
-  const KEY_LEFT = 37;
-  const KEY_RIGHT = 39;
-
   const body = document.querySelector(`body`);
   const mainNode = document.querySelector(`#main`);
   const intro = document.querySelector(`#intro`);
@@ -34,13 +31,13 @@
 
   };
 
-  const onClickArrow = (evt) => {
+  const onClickArrow = (event) => {
 
-    if (evt.keyCode === KEY_LEFT) {
-      evt.preventDefault();
+    if (event.key === `ArrowLeft`) {
+      event.preventDefault();
       showScreen(currentScreenNumber - 1);
-    } else if (evt.keyCode === KEY_RIGHT) {
-      evt.preventDefault();
+    } else if (event.key === `ArrowRight`) {
+      event.preventDefault();
       showScreen(currentScreenNumber + 1);
     }
 
