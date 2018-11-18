@@ -2,9 +2,6 @@
 
 (function () {
 
-  const KEY_LEFT = 37;
-  const KEY_RIGHT = 39;
-
   const body = document.querySelector(`body`);
   const mainNode = document.querySelector(`#main`);
   const intro = document.querySelector(`#intro`);
@@ -17,7 +14,7 @@
 
   const screensList = [intro, greeting, rules, gameOne, gameTwo, gameThree, stats];
 
-  let currentScreenNumber = 1;
+  let currentScreenNumber = 0;
 
   const showScreen = (screenNumber) => {
 
@@ -36,10 +33,10 @@
 
   const onClickArrow = (evt) => {
 
-    if (evt.keyCode === KEY_LEFT) {
+    if (evt.key === `ArrowLeft`) {
       evt.preventDefault();
       showScreen(currentScreenNumber - 1);
-    } else if (evt.keyCode === KEY_RIGHT) {
+    } else if (evt.key === `ArrowRight`) {
       evt.preventDefault();
       showScreen(currentScreenNumber + 1);
     }
