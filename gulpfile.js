@@ -1,5 +1,3 @@
-'use strict';
-
 const rollup = require(`gulp-better-rollup`);
 const sourcemaps = require(`gulp-sourcemaps`);
 
