@@ -1,6 +1,6 @@
-import {changeScreen} from './util.js';
-import {createDomElement} from './create-dom-element.js';
-import gameThreeScreen from './game-3.js';
+import {changeScreen} from './util';
+import {createDomElement} from './create-dom-element';
+import gameThreeScreen from './game-3';
 
 const moduleContent = createDomElement(`<p class="game__task">Угадай, фото или рисунок?</p>
   <form class="game__content  game__content--wide">

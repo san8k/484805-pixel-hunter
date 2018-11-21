@@ -1,4 +1,4 @@
-import {showHeader, showHeaderGameInfo} from './header.js';
+import {showHeader, showHeaderGameInfo} from './header';
 
 const mainElement = document.querySelector(`#main`);
 

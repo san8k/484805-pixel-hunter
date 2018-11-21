@@ -1,6 +1,6 @@
-import {changeScreen} from './util.js';
-import {createDomElement} from './create-dom-element.js';
-import statsScreen from './stats.js';
+import {changeScreen} from './util';
+import {createDomElement} from './create-dom-element';
+import statsScreen from './stats';
 
 const moduleContent = createDomElement(`
   <p class="game__task">Найдите рисунок среди изображений</p>

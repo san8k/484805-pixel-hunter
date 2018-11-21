@@ -1,6 +1,6 @@
-import {changeScreen} from './util.js';
-import {createDomElement} from './create-dom-element.js';
-import gameTwoScreen from './game-2.js';
+import {changeScreen} from './util';
+import {createDomElement} from './create-dom-element';
+import gameTwoScreen from './game-2';
 
 const moduleContent = createDomElement(`
   <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>

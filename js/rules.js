@@ -1,6 +1,6 @@
-import {changeScreen} from './util.js';
-import {createDomElement} from './create-dom-element.js';
-import gameOneScreen from './game-1.js';
+import {changeScreen} from './util';
+import {createDomElement} from './create-dom-element';
+import gameOneScreen from './game-1';
 
 const moduleContent = createDomElement(`
   <h2 class="rules__title">Правила</h2>

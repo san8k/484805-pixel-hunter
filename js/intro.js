@@ -1,6 +1,6 @@
-import {changeScreen} from './util.js';
-import {createDomElement} from './create-dom-element.js';
-import greetingScreen from './greeting.js';
+import {changeScreen} from './util';
+import {createDomElement} from './create-dom-element';
+import greetingScreen from './greeting';
 
 const moduleContent = createDomElement(`
   <button class="intro__asterisk asterisk" type="button"><span class="visually-hidden">Продолжить</span>*</button>

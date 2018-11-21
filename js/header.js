@@ -1,5 +1,5 @@
-import greetingScreen from './greeting.js';
-import {changeScreen} from './util.js';
+import greetingScreen from './greeting';
+import {changeScreen} from './util';
 
 const header = document.createElement(`header`);
 header.classList.add(`header`);

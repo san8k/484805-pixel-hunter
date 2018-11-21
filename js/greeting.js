@@ -1,6 +1,6 @@
-import {changeScreen} from './util.js';
-import {createDomElement} from './create-dom-element.js';
-import rulesScreen from './rules.js';
+import {changeScreen} from './util';
+import {createDomElement} from './create-dom-element';
+import rulesScreen from './rules';
 
 const moduleContent = createDomElement(`
   <img class="greeting__logo" src="img/logo_ph-big.svg" width="201" height="89" alt="Pixel Hunter">
