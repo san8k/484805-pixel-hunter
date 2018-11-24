@@ -1,4 +1,4 @@
-import greetingScreen from './greeting';
+import greetingScreen from './screens/greeting';
 import {changeScreen} from './util';
 
 const header = document.createElement(`header`);

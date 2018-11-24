@@ -1,5 +1,5 @@
-import {changeScreen} from './util';
-import {createDomElement} from './create-dom-element';
+import {changeScreen} from '../util';
+import {createDomElement} from '../create-dom-element';
 import gameOneScreen from './game-1';
 
 const moduleContent = createDomElement(`

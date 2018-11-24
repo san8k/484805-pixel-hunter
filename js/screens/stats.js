@@ -1,4 +1,4 @@
-import {createDomElement} from './create-dom-element';
+import {createDomElement} from '../create-dom-element';
 
 const moduleContent = createDomElement(`
   <h2 class="result__title">Победа!</h2>

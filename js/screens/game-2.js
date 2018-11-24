@@ -1,5 +1,5 @@
-import {changeScreen} from './util';
-import {createDomElement} from './create-dom-element';
+import {changeScreen} from '../util';
+import {createDomElement} from '../create-dom-element';
 import gameThreeScreen from './game-3';
 
 const moduleContent = createDomElement(`<p class="game__task">Угадай, фото или рисунок?</p>
@@ -7,7 +7,7 @@ const moduleContent = createDomElement(`<p class="game__task">Угадай, фо
     <div class="game__option">
       <img src="http://placehold.it/705x455" alt="Option 1" width="705" height="455">
       <label class="game__answer  game__answer--photo">
-        <input class="visually-hidden" name="question1" type="radio" value="photo">
+        <input class="visually-hidden" name="question1 type="radio" value="photo">
         <span>Фото</span>
       </label>
       <label class="game__answer  game__answer--paint">
