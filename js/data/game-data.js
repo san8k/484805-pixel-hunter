@@ -14,6 +14,7 @@ export const INITIAL_GAME_DATA = Object.freeze({
   answersList: []
 });
 
+export const answersList = []; // не забыть удалить, только для теста
 export const pictures = {
   paintings: [
     `https://k42.kn3.net/CF42609C8.jpg`,
@@ -87,7 +88,8 @@ export const testResults = [
   results.correct[0],
   results.correct[1],
   results.correct[2],
-  results.unknonw,
+  results.unknown,
+  results.unknown
 ];
 
 const currentAnswerPoints = (currentAnswer) => {

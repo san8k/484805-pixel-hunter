@@ -1,6 +1,6 @@
 import {changeScreen} from '../util';
 import {createDomElement} from '../create-dom-element';
-import {showGuessForEachScreen} from './game';
+import {showGameScreen} from './game';
 import {headerTemplate} from '../header';
 import * as data from '../data/game-data';
 
@@ -33,7 +33,7 @@ inputPlayerName.addEventListener(`input`, () => {
 });
 
 buttonStartGame.addEventListener(`click`, () => {
-  changeScreen(showGuessForEachScreen(), headerTemplate(data.INITIAL_GAME_DATA));
+  changeScreen(showGameScreen(data.questions[0][`task`]), headerTemplate(data.INITIAL_GAME_DATA));
 });
 
 

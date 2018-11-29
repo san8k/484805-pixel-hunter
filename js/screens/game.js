@@ -50,92 +50,82 @@ const showResults = (results) => {
   return resultsNode.join(``);
 };
 
-export const showFindPaintingScreen = () => {
-  const questionTemplate = `
-  <p class="game__task">${data.questions[2][`title`]}</p>
-  <form class="game__content  game__content--triple">
-    ${findPaintingTemplate}
-  </form>
-  <ul class="stats">
-    ${showResults(data.testResults)}
-  </ul>
-  `;
-  const questionScreen = createDomElement(questionTemplate, `game`);
-  const gameForm = questionScreen.querySelector(`.game__content`);
-  const options = Array.from(gameForm.querySelectorAll(`img`));
-  options.forEach((it) => {
-    it.addEventListener(`click`, () => {
-      data.answersList.push(data.results.correct[0]);
-      if (data.INITIAL_GAME_DATA.lives === 0 || data.INITIAL_GAME_DATA.level === 9 || data.answersList.length === 10) {
-        changeScreen(statsScreen, headerTemplate(data.INITIAL_GAME_DATA));
-      } else {
-        changeScreen(showGuessForEachScreen(data.INITIAL_GAME_DATA.level), headerTemplate(data.INITIAL_GAME_DATA));
-      }
-    });
-  });
+export const showGameScreen = (gameType) => {
+  let questionScreen;
+  let gameForm;
+  switch (gameType) {
+    case `guessForEach`:
+      questionScreen = createDomElement(`
+      <p class="game__task">${data.questions[0][`title`]}</p>
+      <form class="game__content">
+        ${guessForEachTemplate}
+      </form>
+      <ul class="stats">
+        ${showResults(data.testResults)}
+      </ul>
+      `, `game`);
+      gameForm = questionScreen.querySelector(`.game__content`);
+      gameForm.addEventListener(`change`, () => {
+        if (gameForm.querySelector(`input[name="question1"]:checked`) && gameForm.querySelector(`input[name="question2"]:checked`)) {
+          data.answersList.push(data.results.correct[0]);
+          // добавить + уровень в копию объекта + время ответа + управление жизнями
+          if (data.INITIAL_GAME_DATA.lives === 0 || data.INITIAL_GAME_DATA.level === 9 || data.answersList.length === 10) {
+            changeScreen(statsScreen, headerTemplate(data.INITIAL_GAME_DATA));
+          } else {
+            changeScreen(showGameScreen(data.questions[1][`task`]), headerTemplate(data.INITIAL_GAME_DATA));
+          }
+        }
+      });
+      break;
+    case `guessForOne`:
+      questionScreen = createDomElement(`
+      <p class="game__task">${data.questions[1][`title`]}</p>
+      <form class="game__content  game__content--wide">
+        ${guessForOneTemplate}
+      </form>
+      <ul class="stats">
+        ${showResults(data.testResults)}
+      </ul>
+      `, `game`);
+      gameForm = questionScreen.querySelector(`.game__content`);
+      gameForm.addEventListener(`change`, () => {
+        if (gameForm.querySelector(`input[name="question1"]:checked`)) {
+          data.answersList.push(data.results.correct[0]);
+          if (data.INITIAL_GAME_DATA.lives === 0 || data.INITIAL_GAME_DATA.level === 9 || data.answersList.length === 10) {
+            changeScreen(statsScreen, headerTemplate(data.INITIAL_GAME_DATA));
+          } else {
+            changeScreen(showGameScreen(data.questions[2][`task`]), headerTemplate(data.INITIAL_GAME_DATA));
+          }
+        }
+      });
+      break;
+    case `findPainting`:
+      questionScreen = createDomElement(`
+      <p class="game__task">${data.questions[2][`title`]}</p>
+      <form class="game__content  game__content--triple">
+        ${findPaintingTemplate}
+      </form>
+      <ul class="stats">
+        ${showResults(data.testResults)}
+      </ul>
+      `, `game`);
+      gameForm = questionScreen.querySelector(`.game__content`);
+      const options = Array.from(gameForm.querySelectorAll(`img`));
+      options.forEach((it) => {
+        it.addEventListener(`click`, () => {
+          data.answersList.push(data.results.correct[0]);
+          if (data.INITIAL_GAME_DATA.lives === 0 || data.INITIAL_GAME_DATA.level === 9 || data.answersList.length === 10) {
+            changeScreen(statsScreen, headerTemplate(data.INITIAL_GAME_DATA));
+          } else {
+            changeScreen(showGameScreen(data.questions[0][`task`]), headerTemplate(data.INITIAL_GAME_DATA));
+          }
+        });
+      });
+      break;
+    default:
+      throw new Error(`Указан некорректный тип игры`);
+  }
 
   return questionScreen;
-};
-
-export const showGuessForOneScreen = () => {
-  const questionTemplate = `
-  <p class="game__task">${data.questions[1][`title`]}</p>
-  <form class="game__content  game__content--wide">
-    ${guessForOneTemplate}
-  </form>
-  <ul class="stats">
-    ${showResults(data.testResults)}
-  </ul>
-  `;
-  const questionScreen = createDomElement(questionTemplate, `game`);
-
-  const gameForm = questionScreen.querySelector(`.game__content`);
-  gameForm.addEventListener(`change`, () => {
-    if (gameForm.querySelector(`input[name="question1"]:checked`)) {
-      data.answersList.push(data.results.correct[0]);
-      if (data.INITIAL_GAME_DATA.lives === 0 || data.INITIAL_GAME_DATA.level === 9 || data.answersList.length === 10) {
-        changeScreen(statsScreen, headerTemplate(data.INITIAL_GAME_DATA));
-      } else {
-        changeScreen(showFindPaintingScreen(data.INITIAL_GAME_DATA.level), headerTemplate(data.INITIAL_GAME_DATA));
-      }
-    }
-  });
-
-  return questionScreen;
-};
-
-export const showGuessForEachScreen = () => {
-  const questionTemplate = `
-  <p class="game__task">${data.questions[0][`title`]}</p>
-  <form class="game__content">
-    ${guessForEachTemplate}
-  </form>
-  <ul class="stats">
-    ${showResults(data.testResults)}
-  </ul>
-  `;
-  const questionScreen = createDomElement(questionTemplate, `game`);
-
-  const gameForm = questionScreen.querySelector(`.game__content`);
-  gameForm.addEventListener(`change`, () => {
-    // переписать этот кусок для проверки двух чеков и правильности ответа
-    // вернуть систему флагов? и querySelectorAll для input-ов
-    if (gameForm.querySelector(`input[name="question1"]:checked`) && gameForm.querySelector(`input[name="question2"]:checked`)) {
-      data.answersList.push(data.results.correct[0]);
-      // добавить + уровень в копию объекта + время ответа + управление жизнями
-      if (data.INITIAL_GAME_DATA.lives === 0 || data.INITIAL_GAME_DATA.level === 9 || data.answersList.length === 10) {
-        changeScreen(statsScreen, headerTemplate(data.INITIAL_GAME_DATA));
-      } else {
-        changeScreen(showGuessForOneScreen(data.INITIAL_GAME_DATA.level), headerTemplate(data.INITIAL_GAME_DATA));
-      }
-    }
-  });
-
-  return questionScreen;
-};
-
-const showGameScreen = (gameType) => {
-
-  return gameScreen;
 };
 
