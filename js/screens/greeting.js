@@ -1,6 +1,8 @@
 import {changeScreen} from '../util';
 import {createDomElement} from '../create-dom-element';
 import rulesScreen from './rules';
+import {headerTemplate} from '../header';
+import {INITIAL_GAME_DATA} from '../data/game-data';
 
 const moduleContent = createDomElement(`
   <img class="greeting__logo" src="img/logo_ph-big.svg" width="201" height="89" alt="Pixel Hunter">
@@ -25,7 +27,7 @@ const moduleContent = createDomElement(`
 
 const arrow = moduleContent.querySelector(`.greeting__continue`);
 arrow.addEventListener(`click`, () => {
-  changeScreen(rulesScreen);
+  changeScreen(rulesScreen, headerTemplate(INITIAL_GAME_DATA));
 });
 
 export default moduleContent;

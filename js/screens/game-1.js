@@ -1,6 +1,8 @@
 import {changeScreen} from '../util';
 import {createDomElement} from '../create-dom-element';
 import gameTwoScreen from './game-2';
+import {headerTemplate} from '../header';
+import {INITIAL_GAME_DATA} from '../data/game-data';
 
 const moduleContent = createDomElement(`
   <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
@@ -53,7 +55,7 @@ Array.from(answersOne).forEach((elem) => {
     if (elem.checked === true) {
       flagQuestionOne = true;
       if (flagQuestionTwo) {
-        changeScreen(gameTwoScreen);
+        changeScreen(gameTwoScreen, headerTemplate(INITIAL_GAME_DATA));
       }
     }
   });
@@ -64,7 +66,7 @@ Array.from(answersTwo).forEach((elem) => {
     if (elem.checked === true) {
       flagQuestionTwo = true;
       if (flagQuestionOne) {
-        changeScreen(gameTwoScreen);
+        changeScreen(gameTwoScreen, headerTemplate(INITIAL_GAME_DATA));
       }
     }
   });

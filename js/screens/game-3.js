@@ -1,6 +1,8 @@
 import {changeScreen} from '../util';
 import {createDomElement} from '../create-dom-element';
 import statsScreen from './stats';
+import {headerTemplate} from '../header';
+import {INITIAL_GAME_DATA} from '../data/game-data';
 
 const moduleContent = createDomElement(`
   <p class="game__task">Найдите рисунок среди изображений</p>
@@ -33,7 +35,7 @@ const answers = moduleContent.querySelectorAll(`.game__option`);
 
 Array.from(answers).forEach((elem) => {
   elem.addEventListener(`click`, () => {
-    changeScreen(statsScreen);
+    changeScreen(statsScreen, headerTemplate(INITIAL_GAME_DATA));
   });
 });
 

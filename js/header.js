@@ -1,46 +1,20 @@
-import greetingScreen from './screens/greeting';
-import {changeScreen} from './util';
-
-const header = document.createElement(`header`);
-header.classList.add(`header`);
-
-const headerButton = document.createElement(`button`);
-headerButton.classList.add(`back`);
-headerButton.innerHTML = `
-  <span class="visually-hidden">Вернуться к началу</span>
-  <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
-    <use xlink:href="img/sprite.svg#arrow-left"></use>
-  </svg>
-  <svg class="icon" width="101" height="44" viewBox="0 0 101 44" fill="#000000">
-    <use xlink:href="img/sprite.svg#logo-small"></use>
-  </svg>
+export const headerTemplate = (state) => `
+    <button class="back">
+        <span class="visually-hidden">Вернуться к началу</span>
+        <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
+          <use xlink:href="img/sprite.svg#arrow-left"></use>
+        </svg>
+        <svg class="icon" width="101" height="44" viewBox="0 0 101 44" fill="#000000">
+          <use xlink:href="img/sprite.svg#logo-small"></use>
+        </svg>
+      </button>
+    <div class="game__timer">${state.time}</div>
+    <div class="game__lives">
+      ${new Array(3 - state.lives)
+        .fill(`<img src="img/heart__empty.svg" class="game__heart" alt=" Missed Life" width="31" height="27">`)
+        .join(``)}
+      ${new Array(state.lives)
+        .fill(`<img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">`)
+        .join(``)}
+    </div>
 `;
-
-const headerTimer = document.createElement(`div`);
-headerTimer.classList.add(`game__timer`);
-headerTimer.innerHTML = `NN`;
-
-const headerLives = document.createElement(`div`);
-headerLives.classList.add(`game__lives`);
-headerLives.innerHTML = `
-  <img src="img/heart__empty.svg" class="game__heart" alt=" Missed Life" width="31" height="27">
-  <img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">
-  <img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">
-`;
-
-headerButton.addEventListener(`click`, () => {
-  changeScreen(greetingScreen);
-});
-
-const showHeader = () => {
-  header.innerHTML = ``;
-  header.appendChild(headerButton);
-  return header;
-};
-
-const showHeaderGameInfo = () => {
-  header.appendChild(headerTimer);
-  header.appendChild(headerLives);
-};
-
-export {showHeader, showHeaderGameInfo};

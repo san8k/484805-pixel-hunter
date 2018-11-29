@@ -1,6 +1,8 @@
 import {changeScreen} from '../util';
 import {createDomElement} from '../create-dom-element';
 import gameThreeScreen from './game-3';
+import {headerTemplate} from '../header';
+import {INITIAL_GAME_DATA} from '../data/game-data';
 
 const moduleContent = createDomElement(`<p class="game__task">Угадай, фото или рисунок?</p>
   <form class="game__content  game__content--wide">
@@ -34,7 +36,7 @@ const answers = moduleContent.querySelectorAll(`input[name="question1"]`);
 
 Array.from(answers).forEach((elem) => {
   elem.addEventListener(`click`, () => {
-    changeScreen(gameThreeScreen);
+    changeScreen(gameThreeScreen, headerTemplate(INITIAL_GAME_DATA));
   });
 });
 

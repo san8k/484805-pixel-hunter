@@ -1,16 +1,31 @@
-import {showHeader, showHeaderGameInfo} from './header';
+import {createHeader} from './create-dom-element';
+import moduleContent from './screens/greeting';
 
 const mainElement = document.querySelector(`#main`);
 
-export const changeScreen = (element) => {
-  mainElement.innerHTML = ``;
-  mainElement.appendChild(element);
-  const section = mainElement.querySelector(`section`);
-  if (!section.classList.contains(`intro`) && !section.classList.contains(`greeting`)) {
-    mainElement.insertBefore(showHeader(), section);
-    if (section.classList.contains(`game`)) {
-      showHeaderGameInfo();
-    }
-  }
+const activateBackButton = () => {
+  const button = document.querySelector(`.back`);
+  button.addEventListener(`click`, () => {
+    changeScreen(moduleContent);
+  });
+};
 
+const hideGameState = () => {
+  const header = document.querySelector(`header`);
+  while (header.children.length > 1) {
+    header.removeChild(header.lastChild);
+  }
+};
+
+export const changeScreen = (section, header) => {
+  mainElement.innerHTML = ``;
+  if (header) {
+    mainElement.appendChild(createHeader(header));
+    activateBackButton();
+  }
+  mainElement.appendChild(section);
+  const screenNode = document.querySelector(`section`);
+  if (screenNode.classList.contains(`rules`) || screenNode.classList.contains(`result`)) {
+    hideGameState();
+  }
 };

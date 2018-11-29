@@ -1,6 +1,8 @@
 import {changeScreen} from '../util';
 import {createDomElement} from '../create-dom-element';
-import gameOneScreen from './game-1';
+import {showGuessForEachScreen} from './game';
+import {headerTemplate} from '../header';
+import * as data from '../data/game-data';
 
 const moduleContent = createDomElement(`
   <h2 class="rules__title">Правила</h2>
@@ -31,7 +33,8 @@ inputPlayerName.addEventListener(`input`, () => {
 });
 
 buttonStartGame.addEventListener(`click`, () => {
-  changeScreen(gameOneScreen);
+  changeScreen(showGuessForEachScreen(), headerTemplate(data.INITIAL_GAME_DATA));
 });
+
 
 export default moduleContent;
