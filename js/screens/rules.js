@@ -33,7 +33,7 @@ inputPlayerName.addEventListener(`input`, () => {
 });
 
 buttonStartGame.addEventListener(`click`, () => {
-  changeScreen(showGameScreen(data.questions[0][`task`]), headerTemplate(data.INITIAL_GAME_DATA));
+  changeScreen(showGameScreen(data.questions[0][`task`], Object.assign({}, data.INITIAL_GAME_DATA)), headerTemplate(Object.assign({}, data.INITIAL_GAME_DATA)));
 });
 
 

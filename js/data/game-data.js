@@ -1,16 +1,28 @@
-const ANSWER_TIMER = 30;
-const QUICK_ANSWER_TIME = 10;
-const LONG_ANSWER_TIME = 20;
-const ANSWER_POINTS = 100;
-const QUICK_ANSWER_POINTS = 50;
-const LONG_ANSWER_POINTS = -50;
-const EXTRA_LIFE_POINTS = 50;
+export const MAX_LEVEL = 10;
+
+export const ANSWER_TIME = {
+  fast: 10,
+  slow: 20,
+  max: 30
+};
+
+export const LIVES = {
+  start: 3,
+  death: 0
+};
+
+export const POINTS = {
+  correct: 100,
+  fast: 50,
+  slow: -50,
+  lifeBonus: 50
+};
 
 
 export const INITIAL_GAME_DATA = Object.freeze({
-  level: 0,
-  lives: 3,
-  time: ANSWER_TIMER,
+  level: 1,
+  lives: LIVES.start,
+  time: ANSWER_TIME.max,
   answersList: []
 });
 
@@ -41,11 +53,15 @@ export const questions = [
     answers: [
       {
         picture: pictures.paintings[0],
-        type: `paint`
+        type: `paint`,
+        width: 468,
+        height: 458
       },
       {
         picture: pictures.photos[2],
-        type: `photo`
+        type: `photo`,
+        width: 468,
+        height: 458
       }
     ]
   },
@@ -55,7 +71,9 @@ export const questions = [
     answers: [
       {
         picture: pictures.paintings[1],
-        type: `paint`
+        type: `paint`,
+        width: 705,
+        height: 455
       }
     ]
   },
@@ -92,17 +110,39 @@ export const testResults = [
   results.unknown
 ];
 
+export const calculateScore = (answers, lives) => {
+  if (answers.length < MAX_LEVEL || lives < 0) {
+    return -1;
+  }
+  let scores = lives * POINTS.lifeBonus;
+  answers.forEach((it) => {
+    switch (it) {
+      case results.correct[0]:
+        scores += POINTS.correct;
+        break;
+      case results.correct[1]:
+        scores += POINTS.correct + POINTS.slow;
+        break;
+      case results.correct[2]:
+        scores += POINTS.correct + POINTS.fast;
+        break;
+    }
+  });
+
+  return scores;
+};
+
 const currentAnswerPoints = (currentAnswer) => {
   const {isCorrectAnswer, time} = currentAnswer;
-  let answerPoints = ANSWER_POINTS;
-  if (!isCorrectAnswer || time > ANSWER_TIMER) {
+  let answerPoints = POINTS.correct;
+  if (!isCorrectAnswer || time > ANSWER_TIME.max) {
     return 0;
   }
-  if (time < QUICK_ANSWER_TIME) {
-    answerPoints += QUICK_ANSWER_POINTS;
+  if (time < ANSWER_TIME.fast) {
+    answerPoints += POINTS.fast;
   }
-  if (time > LONG_ANSWER_TIME) {
-    answerPoints += LONG_ANSWER_POINTS;
+  if (time > ANSWER_TIME.slow) {
+    answerPoints += POINTS.slow;
   }
   return answerPoints;
 };
@@ -119,13 +159,13 @@ export const calculatePoints = (gameData, answers, lives) => {
   });
   switch (lives) {
     case 3:
-      newGame.points += EXTRA_LIFE_POINTS * 3;
+      newGame.points += POINTS.lifeBonus * 3;
       break;
     case 2:
-      newGame.points += EXTRA_LIFE_POINTS * 2;
+      newGame.points += POINTS.lifeBonus * 2;
       break;
     case 1:
-      newGame.points += EXTRA_LIFE_POINTS;
+      newGame.points += POINTS.lifeBonus;
       break;
     default:
       break;

@@ -29,3 +29,12 @@ export const changeScreen = (section, header) => {
     hideGameState();
   }
 };
+
+export const showResults = (results) => {
+  const resultsNode = [];
+  results.map((it) => {
+    it = `<li class="stats__result stats__result--${it}"></li>`;
+    resultsNode.push(it);
+  });
+  return resultsNode.join(``);
+};
