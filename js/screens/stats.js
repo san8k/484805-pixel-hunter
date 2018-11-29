@@ -1,5 +1,6 @@
 import {createDomElement} from '../create-dom-element';
 import * as data from '../data/game-data';
+import * as testData from '../data/test-data';
 import {showResults} from '../util';
 
 export const showStatsScreen = (gameStat) => {
@@ -64,7 +65,7 @@ export const showStatsScreen = (gameStat) => {
       <td class="result__number">2.</td>
       <td>
         <ul class="stats">
-          ${showResults(data.testResults)}
+          ${showResults(testData.testResults)}
         </ul>
       </td>
       <td class="result__total"></td>
@@ -76,7 +77,7 @@ export const showStatsScreen = (gameStat) => {
       <td class="result__number">3.</td>
       <td colspan="2">
         <ul class="stats">
-        ${showResults(data.testResults)}
+        ${showResults(testData.testResults)}
         </ul>
       </td>
       <td class="result__points">× 100</td>

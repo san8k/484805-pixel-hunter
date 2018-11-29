@@ -18,7 +18,6 @@ export const POINTS = {
   lifeBonus: 50
 };
 
-
 export const INITIAL_GAME_DATA = Object.freeze({
   level: 1,
   lives: LIVES.start,
@@ -26,7 +25,6 @@ export const INITIAL_GAME_DATA = Object.freeze({
   answersList: []
 });
 
-export const answersList = []; // не забыть удалить, только для теста
 export const pictures = {
   paintings: [
     `https://k42.kn3.net/CF42609C8.jpg`,
@@ -97,19 +95,6 @@ export const questions = [
   }
 ];
 
-export const testResults = [
-  results.correct[0],
-  results.correct[1],
-  results.correct[2],
-  results.wrong,
-  results.wrong,
-  results.correct[0],
-  results.correct[1],
-  results.correct[2],
-  results.unknown,
-  results.unknown
-];
-
 export const calculateScore = (answers, lives) => {
   if (answers.length < MAX_LEVEL || lives < 0) {
     return -1;
@@ -130,67 +115,6 @@ export const calculateScore = (answers, lives) => {
   });
 
   return scores;
-};
-
-const currentAnswerPoints = (currentAnswer) => {
-  const {isCorrectAnswer, time} = currentAnswer;
-  let answerPoints = POINTS.correct;
-  if (!isCorrectAnswer || time > ANSWER_TIME.max) {
-    return 0;
-  }
-  if (time < ANSWER_TIME.fast) {
-    answerPoints += POINTS.fast;
-  }
-  if (time > ANSWER_TIME.slow) {
-    answerPoints += POINTS.slow;
-  }
-  return answerPoints;
-};
-
-export const calculatePoints = (gameData, answers, lives) => {
-  const answersCount = answers.length;
-  const newGame = Object.assign({}, gameData, {answersCount}, {lives});
-
-  if (newGame.answersCount < 10) {
-    return -1;
-  }
-  answers.forEach((answer) => {
-    newGame.points += currentAnswerPoints(answer);
-  });
-  switch (lives) {
-    case 3:
-      newGame.points += POINTS.lifeBonus * 3;
-      break;
-    case 2:
-      newGame.points += POINTS.lifeBonus * 2;
-      break;
-    case 1:
-      newGame.points += POINTS.lifeBonus;
-      break;
-    default:
-      break;
-  }
-
-  return newGame.points;
-};
-
-export const countExtraLives = (gameData, answers) => {
-  const newGame = Object.assign({}, gameData);
-  answers.forEach((answer) => {
-    const {isCorrectAnswer} = answer;
-    if (!isCorrectAnswer) {
-      newGame.lives -= 1;
-    }
-  });
-  return newGame.lives;
-};
-
-export const changeLevel = (gameData, answers) => {
-  const newGame = Object.assign({}, gameData);
-  for (let i = 0; i < answers.length; i++) {
-    newGame.level += 1;
-  }
-  return newGame.level;
 };
 
 export const calculateAnswerTime = (clickTime) => {

@@ -1,5 +1,6 @@
 import {createDomElement} from '../create-dom-element';
 import * as data from '../data/game-data';
+import * as testData from '../data/test-data';
 import {changeScreen, showResults} from '../util';
 import {headerTemplate} from '../header';
 import {showStatsScreen} from './stats';
@@ -38,7 +39,7 @@ export const showGameScreen = (gameType, gameState) => {
         ${guessTemplate(data.questions[0])}
       </form>
       <ul class="stats">
-        ${showResults(data.testResults)}
+        ${showResults(testData.testResults)}
       </ul>
       `, `game`);
       gameForm = questionScreen.querySelector(`.game__content`);
@@ -61,7 +62,7 @@ export const showGameScreen = (gameType, gameState) => {
         ${guessTemplate(data.questions[1])}
       </form>
       <ul class="stats">
-        ${showResults(data.testResults)}
+        ${showResults(testData.testResults)}
       </ul>
       `, `game`);
       gameForm = questionScreen.querySelector(`.game__content`);
@@ -85,7 +86,7 @@ export const showGameScreen = (gameType, gameState) => {
         ${findPaintingTemplate}
       </form>
       <ul class="stats">
-        ${showResults(data.testResults)}
+        ${showResults(testData.testResults)}
       </ul>
       `, `game`);
       gameForm = questionScreen.querySelector(`.game__content`);
