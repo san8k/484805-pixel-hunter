@@ -28,81 +28,143 @@ ${data.questions[2][`answers`].map((it, i) => `
   </div>`).join(``)
 }`;
 
-export const showGameScreen = (gameType, gameState) => {
+export const showGameScreen = (questionsList, questionIndex, gameState) => {
   let questionScreen;
   let gameForm;
-  switch (gameType) {
-    case `guessForEach`:
-      questionScreen = createDomElement(`
-      <p class="game__task">${data.questions[0][`title`]}</p>
-      <form class="game__content">
-        ${guessTemplate(data.questions[0])}
-      </form>
-      <ul class="stats">
-        ${showResults(testData.testResults)}
-      </ul>
-      `, `game`);
-      gameForm = questionScreen.querySelector(`.game__content`);
-      gameForm.addEventListener(`change`, () => {
-        if (gameForm.querySelector(`input[name="question1"]:checked`) && gameForm.querySelector(`input[name="question2"]:checked`)) {
-          gameState.answersList.push(data.results.correct[0]);
-          if (gameState.lives === data.LIVES.death || gameState.level === data.MAX_LEVEL || data.answersList.length === data.MAX_LEVEL) {
-            changeScreen(showStatsScreen(gameState), headerTemplate(gameState));
+
+  const breakGame = () => {
+    if (gameState.lives === data.LIVES.death || gameState.level === data.MAX_LEVEL || data.answersList.length === data.MAX_LEVEL) {
+      changeScreen(showStatsScreen(gameState), headerTemplate(gameState));
+    }
+  };
+
+  const getNextIndex = () => {
+    const MAX_INDEX = 2;
+    if (questionIndex + 1 > MAX_INDEX) {
+      return 0;
+    }
+    return questionIndex + 1;
+  };
+
+  const getTrueAnswer = () => {
+    gameState.answersList.push(data.results.correct[0]);
+    breakGame();
+    gameState.level += 1;
+    changeScreen(showGameScreen(questionsList, getNextIndex(), Object.assign({}, gameState)), headerTemplate(gameState));
+  };
+
+  const getFalseAnswer = () => {
+    gameState.answersList.push(data.results.wrong);
+    breakGame();
+    gameState.level += 1;
+    gameState.lives -= 1;
+    changeScreen(showGameScreen(questionsList, getNextIndex(), Object.assign({}, gameState)), headerTemplate(gameState));
+  };
+
+  const getAnswer = () => {
+    gameForm = questionScreen.querySelector(`.game__content`);
+
+    if (questionIndex === 0) {
+      let answerOne;
+      let answerTwo;
+
+      gameForm.elements.question1.forEach((element, i) => {
+        element.addEventListener(`change`, () => {
+          if (gameForm.elements.question1[i].value === questionsList[questionIndex][`answers`][0][`type`]) {
+            answerOne = 1;
+            if (answerTwo === 1) {
+              getTrueAnswer();
+            } else if (answerTwo !== undefined) {
+              getFalseAnswer();
+            }
           } else {
-            gameState.level += 1;
-            changeScreen(showGameScreen(data.questions[1][`task`], Object.assign({}, gameState)), headerTemplate(gameState));
-          }
-        }
-      });
-      break;
-    case `guessForOne`:
-      questionScreen = createDomElement(`
-      <p class="game__task">${data.questions[1][`title`]}</p>
-      <form class="game__content  game__content--wide">
-        ${guessTemplate(data.questions[1])}
-      </form>
-      <ul class="stats">
-        ${showResults(testData.testResults)}
-      </ul>
-      `, `game`);
-      gameForm = questionScreen.querySelector(`.game__content`);
-      gameForm.addEventListener(`change`, () => {
-        if (gameForm.querySelector(`input[name="question1"]:checked`)) {
-          gameState.answersList.push(data.results.wrong);
-          if (gameState.lives === data.LIVES.death || gameState.level === data.MAX_LEVEL || data.answersList.length === data.MAX_LEVEL) {
-            changeScreen(showStatsScreen(gameState), headerTemplate(gameState));
-          } else {
-            gameState.level += 1;
-            gameState.lives -= 1;
-            changeScreen(showGameScreen(data.questions[2][`task`], Object.assign(gameState)), headerTemplate(gameState));
-          }
-        }
-      });
-      break;
-    case `findPainting`:
-      questionScreen = createDomElement(`
-      <p class="game__task">${data.questions[2][`title`]}</p>
-      <form class="game__content  game__content--triple">
-        ${findPaintingTemplate}
-      </form>
-      <ul class="stats">
-        ${showResults(testData.testResults)}
-      </ul>
-      `, `game`);
-      gameForm = questionScreen.querySelector(`.game__content`);
-      const options = Array.from(gameForm.querySelectorAll(`img`));
-      options.forEach((it) => {
-        it.addEventListener(`click`, () => {
-          gameState.answersList.push(data.results.wrong);
-          if (gameState.lives === data.LIVES.death || gameState.level === data.MAX_LEVEL || data.answersList.length === data.MAX_LEVEL) {
-            changeScreen(showStatsScreen(gameState), headerTemplate(gameState));
-          } else {
-            gameState.level += 1;
-            gameState.lives -= 1;
-            changeScreen(showGameScreen(data.questions[0][`task`], Object.assign(gameState)), headerTemplate(gameState));
+            answerOne = 0;
+            if (answerTwo !== undefined) {
+              getFalseAnswer();
+            }
           }
         });
       });
+      gameForm.elements.question2.forEach((element, i) => {
+        element.addEventListener(`change`, () => {
+          if (gameForm.elements.question2[i].value === questionsList[questionIndex][`answers`][1][`type`]) {
+            answerTwo = 1;
+            if (answerOne === 1) {
+              getTrueAnswer();
+            } else if (answerOne !== undefined) {
+              getFalseAnswer();
+            }
+          } else {
+            answerTwo = 0;
+            if (answerOne !== undefined) {
+              getFalseAnswer();
+            }
+          }
+        });
+      });
+
+    } else if (questionIndex === 1) {
+      gameForm.elements.question1.forEach((element, i) => {
+        element.addEventListener(`change`, () => {
+          if (gameForm.elements.question1[i].value === questionsList[questionIndex][`answers`][0][`type`]) {
+            getTrueAnswer();
+          } else {
+            getFalseAnswer();
+          }
+        });
+      });
+
+    } else {
+      const options = Array.from(gameForm.querySelectorAll(`img`));
+      options.forEach((element, i) => {
+        element.addEventListener(`click`, () => {
+          if (questionsList[questionIndex][`answers`][i][`type`] === `paint`) {
+            getTrueAnswer();
+          } else {
+            getFalseAnswer();
+          }
+        });
+      });
+    }
+
+  };
+
+  const getAnswersProgress = () => `
+  <ul class="stats">
+    ${showResults(gameState.answersList)}
+  </ul>
+  `;
+
+  switch (questionIndex) {
+    case 0:
+      questionScreen = createDomElement(`
+      <p class="game__task">${questionsList[questionIndex][`title`]}</p>
+      <form class="game__content">
+        ${guessTemplate(questionsList[questionIndex])}
+      </form>
+      ${getAnswersProgress()}
+      `, `game`);
+      getAnswer();
+      break;
+    case 1:
+      questionScreen = createDomElement(`
+      <p class="game__task">${questionsList[questionIndex][`title`]}</p>
+      <form class="game__content  game__content--wide">
+        ${guessTemplate(questionsList[questionIndex])}
+      </form>
+      ${getAnswersProgress()}
+      `, `game`);
+      getAnswer();
+      break;
+    case 2:
+      questionScreen = createDomElement(`
+      <p class="game__task">${questionsList[questionIndex][`title`]}</p>
+      <form class="game__content  game__content--triple">
+        ${findPaintingTemplate}
+      </form>
+      ${getAnswersProgress()}
+      `, `game`);
+      getAnswer();
       break;
     default:
       throw new Error(`Указан некорректный тип игры`);

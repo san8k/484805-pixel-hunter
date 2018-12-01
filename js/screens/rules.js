@@ -25,15 +25,15 @@ const buttonStartGame = moduleContent.querySelector(`.rules__button`);
 const inputPlayerName = moduleContent.querySelector(`.rules__input`);
 
 inputPlayerName.addEventListener(`input`, () => {
-  if (inputPlayerName.value.length !== 0) {
-    buttonStartGame.disabled = false;
+  if (inputPlayerName.value.length) {
+    buttonStartGame.removeAttribute(`disabled`);
   } else {
-    buttonStartGame.disabled = true;
+    buttonStartGame.setAttribute(`disabled`, `disabled`);
   }
 });
 
 buttonStartGame.addEventListener(`click`, () => {
-  changeScreen(showGameScreen(data.questions[0][`task`], Object.assign({}, data.INITIAL_GAME_DATA)), headerTemplate(Object.assign({}, data.INITIAL_GAME_DATA)));
+  changeScreen(showGameScreen(data.questions, 0, Object.assign({}, data.INITIAL_GAME_DATA)), headerTemplate(Object.assign({}, data.INITIAL_GAME_DATA)));
 });
 
 

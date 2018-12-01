@@ -96,6 +96,7 @@ export const showStatsScreen = (gameStat) => {
   </table>
   `, `result`);
 
+
   return statsScreen;
 };
 
