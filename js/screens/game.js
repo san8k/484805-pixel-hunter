@@ -1,8 +1,8 @@
-import {createDomElement} from '../create-dom-element';
+import {createDomTemplate} from '../create-dom-element';
 import * as data from '../data/game-data';
-import {changeScreen, showResults} from '../util';
-import {headerTemplate} from '../header';
-import {showStatsScreen} from './stats';
+import {changeScreen, showResults, activateBackButton} from '../util';
+import showHeader from '../header';
+import showStatsScreen from './stats';
 
 const guessTemplate = (question) => `
 ${question[`answers`].map((it, i) => `
@@ -28,6 +28,8 @@ ${data.questions[2][`answers`].map((it, i) => `
 }`;
 
 export const showGameScreen = (questionsList, questionIndex, gameState) => {
+
+
   let questionScreen;
   let gameForm;
 
@@ -42,21 +44,21 @@ export const showGameScreen = (questionsList, questionIndex, gameState) => {
   const getTrueAnswer = () => {
     gameState.answersList.push(data.results.correct[0]);
     if (gameState[`lives`] === data.LIVES.death || gameState[`level`] === data.MAX_LEVEL || gameState[`answersList`].length === data.MAX_LEVEL) {
-      changeScreen(showStatsScreen(gameState), headerTemplate(gameState));
+      changeScreen(showStatsScreen(gameState));
     } else {
       gameState.level += 1;
-      changeScreen(showGameScreen(questionsList, getNextIndex(), Object.assign({}, gameState)), headerTemplate(gameState));
+      changeScreen(showGameScreen(questionsList, getNextIndex(), Object.assign({}, gameState)));
     }
   };
 
   const getFalseAnswer = () => {
     gameState.answersList.push(data.results.wrong);
     if (gameState[`lives`] === data.LIVES.death || gameState[`level`] === data.MAX_LEVEL || gameState[`answersList`].length === data.MAX_LEVEL) {
-      changeScreen(showStatsScreen(gameState), headerTemplate(gameState));
+      changeScreen(showStatsScreen(gameState));
     } else {
       gameState.level += 1;
       gameState.lives -= 1;
-      changeScreen(showGameScreen(questionsList, getNextIndex(), Object.assign({}, gameState)), headerTemplate(gameState));
+      changeScreen(showGameScreen(questionsList, getNextIndex(), Object.assign({}, gameState)));
     }
   };
 
@@ -136,38 +138,48 @@ export const showGameScreen = (questionsList, questionIndex, gameState) => {
 
   switch (questionIndex) {
     case 0:
-      questionScreen = createDomElement(`
+      questionScreen = createDomTemplate(`
+      ${showHeader(gameState)}
+      <section class="game">
       <p class="game__task">${questionsList[questionIndex][`title`]}</p>
       <form class="game__content">
         ${guessTemplate(questionsList[questionIndex])}
       </form>
       ${getAnswersProgress()}
-      `, `game`);
+      </section>
+      `);
       getAnswer();
       break;
     case 1:
-      questionScreen = createDomElement(`
+      questionScreen = createDomTemplate(`
+      ${showHeader(gameState)}
+      <section class="game">
       <p class="game__task">${questionsList[questionIndex][`title`]}</p>
       <form class="game__content  game__content--wide">
         ${guessTemplate(questionsList[questionIndex])}
       </form>
       ${getAnswersProgress()}
-      `, `game`);
+      </section>
+      `);
       getAnswer();
       break;
     case 2:
-      questionScreen = createDomElement(`
+      questionScreen = createDomTemplate(`
+      ${showHeader(gameState)}
+      <section class="game">
       <p class="game__task">${questionsList[questionIndex][`title`]}</p>
       <form class="game__content  game__content--triple">
         ${findPaintingTemplate}
       </form>
       ${getAnswersProgress()}
-      `, `game`);
+      </section>
+      `);
       getAnswer();
       break;
     default:
       throw new Error(`Указан некорректный тип игры`);
   }
+  activateBackButton(questionScreen);
 
   return questionScreen;
 };

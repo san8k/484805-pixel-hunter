@@ -1,33 +1,17 @@
-import {createHeader} from './create-dom-element';
-import moduleContent from './screens/greeting';
+import greentingScreen from './screens/greeting';
 
 const mainElement = document.querySelector(`#main`);
 
-const activateBackButton = () => {
-  const button = document.querySelector(`.back`);
+export const activateBackButton = (node) => {
+  const button = node.querySelector(`.back`);
   button.addEventListener(`click`, () => {
-    changeScreen(moduleContent);
+    changeScreen(greentingScreen());
   });
 };
 
-const hideGameState = () => {
-  const header = document.querySelector(`header`);
-  while (header.children.length > 1) {
-    header.removeChild(header.lastChild);
-  }
-};
-
-export const changeScreen = (section, header) => {
+export const changeScreen = (section) => {
   mainElement.innerHTML = ``;
-  if (header) {
-    mainElement.appendChild(createHeader(header));
-    activateBackButton();
-  }
   mainElement.appendChild(section);
-  const screenNode = document.querySelector(`section`);
-  if (screenNode.classList.contains(`rules`) || screenNode.classList.contains(`result`)) {
-    hideGameState();
-  }
 };
 
 export const showResults = (results) => {

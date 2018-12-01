@@ -1,12 +1,13 @@
-import {createDomElement} from '../create-dom-element';
+import {createDomTemplate} from '../create-dom-element';
 import * as data from '../data/game-data';
 import * as testData from '../data/test-data';
-import {showResults} from '../util';
+import {showResults, activateBackButton} from '../util';
+import showHeader from '../header';
 
-export const showStatsScreen = (gameStat) => {
-  const fastAnswersCount = gameStat.answersList.filter((it) => it === `fast`).length;
-  const slowAnswersCount = gameStat.answersList.filter((it) => it === `slow`).length;
-  const gameScore = data.calculateScore(gameStat.answersList, gameStat.lives);
+export default (gameState) => {
+  const fastAnswersCount = gameState.answersList.filter((it) => it === `fast`).length;
+  const slowAnswersCount = gameState.answersList.filter((it) => it === `slow`).length;
+  const gameScore = data.calculateScore(gameState.answersList, gameState.lives);
   const gameResult = () => {
     if (gameScore !== -1) {
       return `Победа!`;
@@ -22,14 +23,16 @@ export const showStatsScreen = (gameStat) => {
     }
   };
 
-  const statsScreen = createDomElement(`
+  const statsScreen = createDomTemplate(`
+  ${showHeader()}
+  <section class="result">
   <h2 class="result__title">${gameResult()}</h2>
   <table class="result__table">
     <tr>
       <td class="result__number">1.</td>
       <td colspan="2">
         <ul class="stats">
-          ${showResults(gameStat.answersList)}
+          ${showResults(gameState.answersList)}
         </ul>
       </td>
       <td class="result__points">× 100</td>
@@ -45,9 +48,9 @@ export const showStatsScreen = (gameStat) => {
     <tr>
       <td></td>
       <td class="result__extra">Бонус за жизни:</td>
-      <td class="result__extra">${gameStat.lives} <span class="stats__result stats__result--alive"></span></td>
+      <td class="result__extra">${gameState.lives} <span class="stats__result stats__result--alive"></span></td>
       <td class="result__points">× 50</td>
-      <td class="result__total">${gameStat.lives * data.POINTS.lifeBonus}</td>
+      <td class="result__total">${gameState.lives * data.POINTS.lifeBonus}</td>
     </tr>
     <tr>
       <td></td>
@@ -94,8 +97,9 @@ export const showStatsScreen = (gameStat) => {
       <td colspan="5" class="result__total  result__total--final">950</td>
     </tr>
   </table>
-  `, `result`);
-
+  </section>
+  `);
+  activateBackButton(statsScreen);
 
   return statsScreen;
 };
