@@ -1,6 +1,5 @@
 import {createDomElement} from '../create-dom-element';
 import * as data from '../data/game-data';
-import * as testData from '../data/test-data';
 import {changeScreen, showResults} from '../util';
 import {headerTemplate} from '../header';
 import {showStatsScreen} from './stats';
@@ -32,12 +31,6 @@ export const showGameScreen = (questionsList, questionIndex, gameState) => {
   let questionScreen;
   let gameForm;
 
-  const breakGame = () => {
-    if (gameState.lives === data.LIVES.death || gameState.level === data.MAX_LEVEL || data.answersList.length === data.MAX_LEVEL) {
-      changeScreen(showStatsScreen(gameState), headerTemplate(gameState));
-    }
-  };
-
   const getNextIndex = () => {
     const MAX_INDEX = 2;
     if (questionIndex + 1 > MAX_INDEX) {
@@ -48,17 +41,23 @@ export const showGameScreen = (questionsList, questionIndex, gameState) => {
 
   const getTrueAnswer = () => {
     gameState.answersList.push(data.results.correct[0]);
-    breakGame();
-    gameState.level += 1;
-    changeScreen(showGameScreen(questionsList, getNextIndex(), Object.assign({}, gameState)), headerTemplate(gameState));
+    if (gameState[`lives`] === data.LIVES.death || gameState[`level`] === data.MAX_LEVEL || gameState[`answersList`].length === data.MAX_LEVEL) {
+      changeScreen(showStatsScreen(gameState), headerTemplate(gameState));
+    } else {
+      gameState.level += 1;
+      changeScreen(showGameScreen(questionsList, getNextIndex(), Object.assign({}, gameState)), headerTemplate(gameState));
+    }
   };
 
   const getFalseAnswer = () => {
     gameState.answersList.push(data.results.wrong);
-    breakGame();
-    gameState.level += 1;
-    gameState.lives -= 1;
-    changeScreen(showGameScreen(questionsList, getNextIndex(), Object.assign({}, gameState)), headerTemplate(gameState));
+    if (gameState[`lives`] === data.LIVES.death || gameState[`level`] === data.MAX_LEVEL || gameState[`answersList`].length === data.MAX_LEVEL) {
+      changeScreen(showStatsScreen(gameState), headerTemplate(gameState));
+    } else {
+      gameState.level += 1;
+      gameState.lives -= 1;
+      changeScreen(showGameScreen(questionsList, getNextIndex(), Object.assign({}, gameState)), headerTemplate(gameState));
+    }
   };
 
   const getAnswer = () => {

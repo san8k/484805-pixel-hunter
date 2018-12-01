@@ -8,14 +8,14 @@ export const showStatsScreen = (gameStat) => {
   const slowAnswersCount = gameStat.answersList.filter((it) => it === `slow`).length;
   const gameScore = data.calculateScore(gameStat.answersList, gameStat.lives);
   const gameResult = () => {
-    if (!gameScore) {
+    if (gameScore !== -1) {
       return `Победа!`;
     } else {
       return `Поражение :(`;
     }
   };
   const resultTotal = () => {
-    if (!gameScore) {
+    if (gameScore !== -1) {
       return gameScore;
     } else {
       return `FAIL`;
