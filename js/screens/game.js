@@ -28,7 +28,7 @@ ${data.questions[2][`answers`].map((it, i) => `
 }`;
 
 export const showGameScreen = (questionsList, questionIndex, gameState) => {
-
+  console.log(`AnswersList: ${gameState[`answersList`]}`);
 
   let questionScreen;
   let gameForm;
