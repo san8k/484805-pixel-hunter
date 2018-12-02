@@ -39,7 +39,7 @@ export default () => {
   });
 
   buttonStartGame.addEventListener(`click`, () => {
-    changeScreen(showGameScreen(data.questions, 0, Object.assign({}, data.INITIAL_GAME_DATA, {'answers': []})));
+    changeScreen(showGameScreen(data.questions, 0, Object.assign({}, data.INITIAL_GAME_DATA, {'answersList': []})));
   });
 
 
