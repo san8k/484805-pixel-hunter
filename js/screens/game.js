@@ -1,4 +1,4 @@
-import {createDomTemplate} from '../create-dom-element';
+import {createDomTemplate} from '../create-dom-template';
 import * as data from '../data/game-data';
 import {changeScreen, showResults, activateBackButton} from '../util';
 import showHeader from '../header';
@@ -27,7 +27,7 @@ ${data.questions[2][`answers`].map((it, i) => `
   </div>`).join(``)
 }`;
 
-export const showGameScreen = (questionsList, questionIndex, gameState) => {
+export const showGame = (questionsList, questionIndex, gameState) => {
   let questionScreen;
   let gameForm;
 
@@ -45,7 +45,7 @@ export const showGameScreen = (questionsList, questionIndex, gameState) => {
       changeScreen(showStatsScreen(gameState));
     } else {
       gameState.level += 1;
-      changeScreen(showGameScreen(questionsList, getNextIndex(), Object.assign({}, gameState)));
+      changeScreen(showGame(questionsList, getNextIndex(), Object.assign({}, gameState)));
     }
   };
 
@@ -56,7 +56,7 @@ export const showGameScreen = (questionsList, questionIndex, gameState) => {
     } else {
       gameState.level += 1;
       gameState.lives -= 1;
-      changeScreen(showGameScreen(questionsList, getNextIndex(), Object.assign({}, gameState)));
+      changeScreen(showGame(questionsList, getNextIndex(), Object.assign({}, gameState)));
     }
   };
 

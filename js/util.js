@@ -1,18 +1,11 @@
-import greentingScreen from './screens/greeting';
-
 const mainElement = document.querySelector(`#main`);
-
-export const activateBackButton = (node) => {
-  const button = node.querySelector(`.back`);
-  button.addEventListener(`click`, () => {
-    changeScreen(greentingScreen());
-  });
-};
 
 export const changeScreen = (section) => {
   mainElement.innerHTML = ``;
   mainElement.appendChild(section);
 };
+
+export const activateBackButton = () => {}; // временно для экрана game
 
 export const showResults = (results) => {
   const resultsNode = [
