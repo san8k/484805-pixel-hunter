@@ -4,13 +4,15 @@ import * as data from '../data/game-data';
 import * as testData from '../data/test-data';
 import {showResults} from '../util';
 
-const gameState = {}; // временно, чтоб не было ошибки
-
 export default class StatsView extends AbstractView {
+  constructor(state) {
+    super();
+    this.gameState = state;
+  }
   get template() {
-    const fastAnswersCount = gameState.answersList.filter((it) => it === `fast`).length;
-    const slowAnswersCount = gameState.answersList.filter((it) => it === `slow`).length;
-    const gameScore = data.calculateScore(gameState.answersList, gameState.lives);
+    const fastAnswersCount = this.gameState.answersList.filter((it) => it === `fast`).length;
+    const slowAnswersCount = this.gameState.answersList.filter((it) => it === `slow`).length;
+    const gameScore = data.calculateScore(this.gameState.answersList, this.gameState.lives);
     const gameResult = () => {
       if (gameScore !== -1) {
         return `Победа!`;
@@ -35,7 +37,7 @@ export default class StatsView extends AbstractView {
         <td class="result__number">1.</td>
         <td colspan="2">
           <ul class="stats">
-            ${showResults(gameState.answersList)}
+            ${showResults(this.gameState.answersList)}
           </ul>
         </td>
         <td class="result__points">× 100</td>
@@ -51,9 +53,9 @@ export default class StatsView extends AbstractView {
       <tr>
         <td></td>
         <td class="result__extra">Бонус за жизни:</td>
-        <td class="result__extra">${gameState.lives} <span class="stats__result stats__result--alive"></span></td>
+        <td class="result__extra">${this.gameState.lives} <span class="stats__result stats__result--alive"></span></td>
         <td class="result__points">× 50</td>
-        <td class="result__total">${gameState.lives * data.POINTS.lifeBonus}</td>
+        <td class="result__total">${this.gameState.lives * data.POINTS.lifeBonus}</td>
       </tr>
       <tr>
         <td></td>

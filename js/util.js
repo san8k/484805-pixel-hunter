@@ -5,8 +5,6 @@ export const changeScreen = (section) => {
   mainElement.appendChild(section);
 };
 
-export const activateBackButton = () => {}; // временно для экрана game
-
 export const showResults = (results) => {
   const resultsNode = [
     `<li class="stats__result stats__result--unknown"></li>`,
