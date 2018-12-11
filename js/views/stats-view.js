@@ -1,5 +1,4 @@
 import AbstractView from '../abstract-view';
-import showHeader from '../header';
 import * as data from '../data/game-data';
 import * as testData from '../data/test-data';
 import {showResults} from '../util';
@@ -29,7 +28,6 @@ export default class StatsView extends AbstractView {
     };
 
     return `
-    ${showHeader()}
     <section class="result">
     <h2 class="result__title">${gameResult()}</h2>
     <table class="result__table">
@@ -105,14 +103,4 @@ export default class StatsView extends AbstractView {
     </section>
     `;
   }
-
-  bind() {
-    const backButton = this.element.querySelector(`.back`);
-    backButton.addEventListener(`click`, () => {
-      this.onClickBack();
-    });
-  }
-
-  onClickBack() {}
-
 }

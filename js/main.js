@@ -1,4 +1,3 @@
-import {changeScreen} from './util';
-import showIntro from './screens/intro';
+import Application from './application';
 
-changeScreen(showIntro());
+Application.showIntro();

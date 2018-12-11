@@ -1,18 +1,23 @@
-import {changeScreen} from '../util';
-import {showGame} from './game';
-import * as data from '../data/game-data';
+import * as gameData from '../data/game-data';
 import RulesView from '../views/rules-view';
-import showGreeting from './greeting';
+import HeaderView from '../views/header-view';
+import Application from '../application';
 
-export default () => {
-  const rules = new RulesView();
-
-  rules.onClickNext = () => {
-    changeScreen(showGame(data.questions, 0, Object.assign({}, data.INITIAL_GAME_DATA, {'answersList': []})));
-  };
-  rules.onCLickBack = () => {
-    changeScreen(showGreeting());
-  };
-
-  return rules.element;
-};
+export default class RulesScreen {
+  constructor() {
+    this.header = new HeaderView();
+    this.rules = new RulesView();
+    const mainNode = document.createElement(`div`);
+    mainNode.
+      appendChild(this.header.element).
+      appendChild(this.rules.element);
+    this.rules.onClickNext = () => {
+      Application.showGame();
+    };
+    this.header.onClickBack = () => {
+      Application.showGreeting();
+    };
+    return mainNode;
+  }
+}
+// gameData.questions, 0, Object.assign({}, gameData.INITIAL_GAME_DATA, {'answersList': []})

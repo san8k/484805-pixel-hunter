@@ -1,13 +1,12 @@
-import {changeScreen} from '../util';
-import showGreeting from './greeting';
 import IntroView from '../views/intro-view';
+import Application from '../application';
 
-export default () => {
-  const intro = new IntroView();
-  intro.onClickNext = () => {
-    changeScreen(showGreeting());
-  };
-
-  return intro.element;
-};
-
+export default class IntroScreen {
+  constructor() {
+    this.intro = new IntroView();
+    this.intro.onClickNext = () => {
+      Application.showGreeting();
+    };
+    return this.intro.element;
+  }
+}

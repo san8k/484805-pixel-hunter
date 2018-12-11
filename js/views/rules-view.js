@@ -1,10 +1,8 @@
 import AbstractView from '../abstract-view';
-import showHeader from '../header';
 
 export default class RulesView extends AbstractView {
   get template() {
     return `
-    ${showHeader()}
     <section class="rules">
     <h2 class="rules__title">Правила</h2>
     <ul class="rules__description">
@@ -27,7 +25,6 @@ export default class RulesView extends AbstractView {
   bind() {
     const buttonStartGame = this.element.querySelector(`.rules__button`);
     const inputPlayerName = this.element.querySelector(`.rules__input`);
-    const buttonBack = this.element.querySelector(`.back`);
 
     inputPlayerName.addEventListener(`input`, () => {
       if (inputPlayerName.value.length) {
@@ -40,14 +37,9 @@ export default class RulesView extends AbstractView {
     buttonStartGame.addEventListener(`click`, () => {
       this.onClickNext();
     });
-
-    buttonBack.addEventListener(`click`, () => {
-      this.onCLickBack();
-    });
   }
 
   onClickNext() {}
-  onCLickBack() {}
 }
 
 
