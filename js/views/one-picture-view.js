@@ -5,7 +5,6 @@ export default class OnePictureView extends AbstractView {
   constructor(gameModel) {
     super();
     this.gameModel = gameModel;
-    // this.gameState = {answerList: []};
     this.questionIndex = this.gameModel.index;
     this.questionsList = this.gameModel.questionsList;
   }
@@ -17,24 +16,13 @@ export default class OnePictureView extends AbstractView {
       <form class="game__content  game__content--wide">
         ${util.guessTemplate(this.questionsList[this.questionIndex])}
       </form>
-
+      ${util.getAnswersProgress(this.gameModel._state)}
       </section>
     `;
   }
-  // ${util.getAnswersProgress(this.gameState)}
 
   bind() {
     const gameForm = this.element.querySelector(`.game__content`);
-    // gameForm.elements.question1.forEach((element, i) => {
-    //   element.addEventListener(`change`, () => {
-    //     // if (gameForm.elements.question1[i].value === this.questionsList[this.questionIndex][`answers`][0][`type`]) {
-    //     //   this.onChangeTrueAnswer();
-    //     // } else {
-    //     //   this.onChangeFalseAnswer();
-    //     // }
-    //     this.onAnswer();
-    //   });
-    // });
     const answers = Array.from(gameForm.querySelectorAll(`input[type='radio']`));
     answers.forEach((element) => {
       element.addEventListener(`change`, () => {
@@ -43,6 +31,4 @@ export default class OnePictureView extends AbstractView {
     });
   }
   onAnswer() {}
-  // onChangeTrueAnswer() {}
-  // onChangeFalseAnswer() {}
 }

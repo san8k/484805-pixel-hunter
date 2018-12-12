@@ -5,7 +5,6 @@ export default class TwoPicturesView extends AbstractView {
   constructor(gameModel) {
     super();
     this.gameModel = gameModel;
-    // this.gameState = {answerList: []};
     this.questionIndex = this.gameModel.index;
     this.questionsList = this.gameModel.questionsList;
   }
@@ -17,52 +16,13 @@ export default class TwoPicturesView extends AbstractView {
       <form class="game__content">
         ${util.guessTemplate(this.questionsList[this.questionIndex])}
       </form>
-
+      ${util.getAnswersProgress(this.gameModel._state)}
       </section>
     `;
   }
-  // ${util.getAnswersProgress(this.gameState)}
 
   bind() {
     const gameForm = this.element.querySelector(`.game__content`);
-    // let answerOne;
-    // let answerTwo;
-    // gameForm.elements.question1.forEach((element, i) => {
-    //   element.addEventListener(`change`, () => {
-
-    //     if (gameForm.elements.question1[i].value === this.questionsList[this.questionIndex][`answers`][0][`type`]) {
-    //       answerOne = 1;
-    //       if (answerTwo === 1) {
-    //         this.onChangeTrueAnswer();
-    //       } else if (answerTwo !== undefined) {
-    //         this.onChangeFalseAnswer();
-    //       }
-    //     } else {
-    //       answerOne = 0;
-    //       if (answerTwo !== undefined) {
-    //         this.onChangeFalseAnswer();
-    //       }
-    //     }
-    //   });
-    // });
-    // gameForm.elements.question2.forEach((element, i) => {
-    //   element.addEventListener(`change`, () => {
-    //     if (gameForm.elements.question2[i].value === this.questionsList[this.questionIndex][`answers`][1][`type`]) {
-    //       answerTwo = 1;
-    //       if (answerOne === 1) {
-    //         this.onChangeTrueAnswer();
-    //       } else if (answerOne !== undefined) {
-    //         this.onChangeFalseAnswer();
-    //       }
-    //     } else {
-    //       answerTwo = 0;
-    //       if (answerOne !== undefined) {
-    //         this.onChangeFalseAnswer();
-    //       }
-    //     }
-    //   });
-    // });
-
     gameForm.addEventListener(`change`, () => {
       const answers = Array.from(gameForm.querySelectorAll(`input[type='radio']:checked`)).map((it) => it.value);
       if (answers.length === this.questionsList[this.questionIndex][`answers`].length) {
@@ -71,6 +31,4 @@ export default class TwoPicturesView extends AbstractView {
     });
   }
   onAnswer() {}
-  // onChangeTrueAnswer() {}
-  // onChangeFalseAnswer() {}
 }

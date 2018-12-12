@@ -13,7 +13,6 @@ export default class ThreePicturesView extends AbstractView {
   constructor(gameModel) {
     super();
     this.gameModel = gameModel;
-    // this.gameState = {answerList: []};
     this.questionIndex = this.gameModel.index;
     this.questionsList = this.gameModel.questionsList;
   }
@@ -25,28 +24,20 @@ export default class ThreePicturesView extends AbstractView {
       <form class="game__content  game__content--triple">
         ${findPaintingTemplate}
       </form>
-
+      ${util.getAnswersProgress(this.gameModel._state)}
       </section>
     `;
   }
-  // ${util.getAnswersProgress(this.gameState)}
 
   bind() {
     const gameForm = this.element.querySelector(`.game__content`);
     const options = Array.from(gameForm.querySelectorAll(`img`));
     options.forEach((element, i) => {
       element.addEventListener(`click`, () => {
-        // if (this.questionsList[this.questionIndex][`answers`][i][`type`] === `paint`) {
-        //   this.onChangeTrueAnswer();
-        // } else {
-        //   this.onChangeFalseAnswer();
-        // }
         this.onAnswer(i);
       });
     });
 
   }
   onAnswer() {}
-  // onChangeTrueAnswer() {}
-  // onChangeFalseAnswer() {}
 }

@@ -4,9 +4,9 @@ import * as testData from '../data/test-data';
 import {showResults} from '../util';
 
 export default class StatsView extends AbstractView {
-  constructor(state) {
+  constructor(gameModel) {
     super();
-    this.gameState = state;
+    this.gameState = gameModel._state;
   }
   get template() {
     const fastAnswersCount = this.gameState.answersList.filter((it) => it === `fast`).length;

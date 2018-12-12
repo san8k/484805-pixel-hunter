@@ -20,7 +20,7 @@ export const POINTS = {
 };
 
 export const INITIAL_GAME_DATA = Object.freeze({
-  level: 1,
+  level: 0,
   lives: LIVES.start,
   time: ANSWER_TIME.max,
   answersList: []

@@ -27,9 +27,9 @@ export const showResults = (results) => {
   return resultsNode.join(``);
 };
 
-export const getAnswersProgress = (gameState) => `
+export const getAnswersProgress = (state) => `
   <ul class="stats">
-    ${showResults(gameState.answersList)}
+    ${showResults(state.answersList)}
   </ul>
   `;
 

@@ -5,7 +5,6 @@ import GreetingScreen from './screens/greeting';
 import RulesScreen from './screens/rules';
 import GameScreen from './screens/game';
 import StatsScreen from './screens/stats';
-import * as gameData from './data/game-data';
 
 export default class Application {
 
@@ -27,7 +26,6 @@ export default class Application {
   static showGame() {
     const game = new GameScreen(new GameModel());
     changeScreen(game);
-    // game.start();
   }
 
   static showStats(model) {
