@@ -2,11 +2,12 @@ import AbstractView from '../abstract-view';
 import * as util from '../util';
 
 export default class OnePictureView extends AbstractView {
-  constructor(questions, index, state) {
+  constructor(gameModel) {
     super();
-    this.gameState = state;
-    this.questionIndex = index;
-    this.questionsList = questions;
+    this.gameModel = gameModel;
+    // this.gameState = {answerList: []};
+    this.questionIndex = this.gameModel.index;
+    this.questionsList = this.gameModel.questionsList;
   }
 
   get template() {
@@ -16,10 +17,11 @@ export default class OnePictureView extends AbstractView {
       <form class="game__content  game__content--wide">
         ${util.guessTemplate(this.questionsList[this.questionIndex])}
       </form>
-      ${util.getAnswersProgress(this.gameState)}
+
       </section>
     `;
   }
+  // ${util.getAnswersProgress(this.gameState)}
 
   bind() {
     const gameForm = this.element.querySelector(`.game__content`);

@@ -5,11 +5,9 @@ import GreetingScreen from './screens/greeting';
 import RulesScreen from './screens/rules';
 import GameScreen from './screens/game';
 import StatsScreen from './screens/stats';
+import * as gameData from './data/game-data';
 
 export default class Application {
-  static start() {
-    this.game = new GameModel();
-  }
 
   static showIntro() {
     const intro = new IntroScreen();
@@ -27,12 +25,13 @@ export default class Application {
   }
 
   static showGame() {
-    const newGame = new GameScreen();
-    newGame.start();
+    const game = new GameScreen(new GameModel());
+    changeScreen(game);
+    // game.start();
   }
 
-  static showStats(state) {
-    const stats = new StatsScreen(state);
+  static showStats(model) {
+    const stats = new StatsScreen(model);
     changeScreen(stats);
   }
 }

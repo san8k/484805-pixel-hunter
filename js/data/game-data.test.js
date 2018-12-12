@@ -32,21 +32,4 @@ describe(`Статистика игры`, () => {
       assert.equal(Object.assign({}, data.INITIAL_GAME_DATA, {'level': 3}).level, 3);
     });
   });
-  describe(`Потрачено времени на вопрос`, () => {
-    it(`Ответ получен за 12 секунд`, () => {
-      assert.equal(data.calculateAnswerTime(12), 12);
-    });
-    it(`Ответ получен за 23 секунды`, () => {
-      assert.equal(data.calculateAnswerTime(23), 23);
-    });
-    it(`Ответ получен за -123 секунды`, () => {
-      assert.equal(data.calculateAnswerTime(-123), -1);
-    });
-    it(`Ответ получен за 38 секунд`, () => {
-      assert.equal(data.calculateAnswerTime(38), -1);
-    });
-    it(`Ответ получен за 0 секунд`, () => {
-      assert.equal(data.calculateAnswerTime(0), 0);
-    });
-  });
 });

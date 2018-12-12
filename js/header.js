@@ -1,9 +1,9 @@
-export default (state) => {
-  const gameState = state ? `<div class="game__timer">${state.time}</div>
+export default (model) => {
+  const gameState = model._state ? `<div class="game__timer">${model._state.time}</div>
   <div class="game__lives">
-    ${`<img src="img/heart__empty.svg" class="game__heart" alt=" Missed Life" width="31" height="27">`.repeat(3 - state.lives)}
+    ${`<img src="img/heart__empty.svg" class="game__heart" alt=" Missed Life" width="31" height="27">`.repeat(3 - model.state.lives)}
     ${`<img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">`
-      .repeat(state.lives)}
+      .repeat(model._state.lives)}
   </div>` : ``;
 
   const headerTemplate = `

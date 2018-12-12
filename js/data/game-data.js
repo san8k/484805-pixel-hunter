@@ -3,7 +3,8 @@ export const MAX_LEVEL = 10;
 export const ANSWER_TIME = {
   fast: 10,
   slow: 20,
-  max: 30
+  max: 30,
+  tick: 1000
 };
 
 export const LIVES = {
@@ -116,20 +117,3 @@ export const calculateScore = (answers, lives) => {
 
   return scores;
 };
-
-export const calculateAnswerTime = (clickTime) => {
-  const startGame = new Date().getTime();
-  const answerTime = new Date().getTime() + clickTime * 1000;
-  const timerId = setTimeout(() => {
-    // Время истекло
-    // Вызов функции перехода на следующий экран
-  }, 30000);
-  if (clickTime >= 0 && clickTime <= 30) {
-    clearTimeout(timerId);
-    return Math.round((answerTime - startGame) / 1000);
-  } else {
-    return -1;
-  }
-};
-
-

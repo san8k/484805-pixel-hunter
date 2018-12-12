@@ -1,7 +1,13 @@
 import AbstractView from '../abstract-view';
 
 export default class RulesView extends AbstractView {
+  constructor(gameModel) {
+    super();
+    this.gameModel = gameModel;
+  }
+
   get template() {
+
     return `
     <section class="rules">
     <h2 class="rules__title">Правила</h2>
@@ -35,6 +41,7 @@ export default class RulesView extends AbstractView {
     });
 
     buttonStartGame.addEventListener(`click`, () => {
+
       this.onClickNext();
     });
   }

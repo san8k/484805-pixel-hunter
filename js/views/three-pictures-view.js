@@ -10,11 +10,12 @@ ${gameData.questions[2][`answers`].map((it, i) => `
 }`;
 
 export default class ThreePicturesView extends AbstractView {
-  constructor(questions, index, state) {
+  constructor(gameModel) {
     super();
-    this.gameState = state;
-    this.questionIndex = index;
-    this.questionsList = questions;
+    this.gameModel = gameModel;
+    // this.gameState = {answerList: []};
+    this.questionIndex = this.gameModel.index;
+    this.questionsList = this.gameModel.questionsList;
   }
 
   get template() {
@@ -24,10 +25,11 @@ export default class ThreePicturesView extends AbstractView {
       <form class="game__content  game__content--triple">
         ${findPaintingTemplate}
       </form>
-      ${util.getAnswersProgress(this.gameState)}
+
       </section>
     `;
   }
+  // ${util.getAnswersProgress(this.gameState)}
 
   bind() {
     const gameForm = this.element.querySelector(`.game__content`);
