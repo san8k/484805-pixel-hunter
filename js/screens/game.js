@@ -83,19 +83,21 @@ export default class GameScreen {
   }
 
   updateContent() {
+    this.mainNode.innerHTML = ``;
     this.gameModel.resetTimer();
     this.startTimer();
 
     this.currentQuestion = this.changeQuestion(this.gameModel.index);
-
+    this.mainNode.appendChild(this.newHeader.element);
     this.mainNode.appendChild(this.currentQuestion.element);
     util.changeScreen(this.mainNode);
   }
 
   updateHeader(state) {
-
-    const newHeader = new HeaderView(state);
-    this.mainNode.appendChild(newHeader.element);
+    this.mainNode.innerHTML = ``;
+    this.newHeader = new HeaderView(state);
+    this.mainNode.appendChild(this.newHeader.element);
+    this.mainNode.appendChild(this.currentQuestion.element);
 
   }
 
