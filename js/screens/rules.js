@@ -1,4 +1,3 @@
-import * as gameData from '../data/game-data';
 import RulesView from '../views/rules-view';
 import HeaderView from '../views/header-view';
 import Application from '../application';
@@ -20,4 +19,3 @@ export default class RulesScreen {
     return mainNode;
   }
 }
-// gameData.questions, 0, Object.assign({}, gameData.INITIAL_GAME_DATA, {'answersList': []})

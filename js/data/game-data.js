@@ -3,7 +3,7 @@ export const MAX_LEVEL = 10;
 export const ANSWER_TIME = {
   fast: 10,
   slow: 20,
-  max: 30,
+  max: 5,
   tick: 1000
 };
 

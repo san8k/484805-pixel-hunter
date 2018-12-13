@@ -12,6 +12,7 @@ export default class StatsView extends AbstractView {
     const fastAnswersCount = this.gameState.answersList.filter((it) => it === `fast`).length;
     const slowAnswersCount = this.gameState.answersList.filter((it) => it === `slow`).length;
     const gameScore = data.calculateScore(this.gameState.answersList, this.gameState.lives);
+
     const gameResult = () => {
       if (gameScore !== -1) {
         return `Победа!`;
@@ -22,6 +23,14 @@ export default class StatsView extends AbstractView {
     const resultTotal = () => {
       if (gameScore !== -1) {
         return gameScore;
+      } else {
+        return `FAIL`;
+      }
+    };
+
+    const answersScore = () => {
+      if (gameScore !== -1) {
+        return gameScore - this.gameState.lives * 50;
       } else {
         return `FAIL`;
       }
@@ -39,7 +48,7 @@ export default class StatsView extends AbstractView {
           </ul>
         </td>
         <td class="result__points">× 100</td>
-        <td class="result__total">${resultTotal()}</td>
+        <td class="result__total">${answersScore()}</td>
       </tr>
       <tr>
         <td></td>

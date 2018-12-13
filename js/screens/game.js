@@ -1,5 +1,4 @@
 import * as gameData from '../data/game-data';
-import * as util from '../util';
 import Application from '../application';
 import HeaderView from '../views/header-view';
 import TwoPicturesView from '../views/two-pictures-view';
@@ -20,49 +19,9 @@ export default class GameScreen {
     };
 
     this.currentQuestion.onAnswer = (answers) => {
-      let index = this.currentQuestion.questionIndex;
-
-      switch (index) {
-        case (0):
-          if (answers[0] === this.gameModel.questionsList[0][`answers`][0][`type`] && answers[1] === this.gameModel.questionsList[0][`answers`][1][`type`]) {
-            this.gameModel._state.answersList.push(gameData.results.correct[0]);
-          } else {
-            this.gameModel._state.answersList.push(gameData.results.wrong);
-            this.gameModel.takeLife();
-          }
-          break;
-        case (1):
-          if (answers === this.gameModel.questionsList[1][`answers`][0][`type`]) {
-            this.gameModel._state.answersList.push(gameData.results.correct[0]);
-          } else {
-            this.gameModel._state.answersList.push(gameData.results.wrong);
-            this.gameModel.takeLife();
-          }
-          break;
-        case (2):
-          if (this.gameModel.questionsList[2][`answers`][answers][`type`] === `paint`) {
-            this.gameModel._state.answersList.push(gameData.results.correct[0]);
-          } else {
-            this.gameModel._state.answersList.push(gameData.results.wrong);
-            this.gameModel.takeLife();
-          }
-          break;
-      }
-      this.stopTimer();
-      this.gameModel.nextIndex();
-      this.gameModel.nextLevel();
-      if (this.gameModel.isDead() || this.gameModel.isMaxLevel()) {
-        Application.showStats(this.gameModel);
-      } else {
-        this.updateHeader();
-        this.updateContent();
-      // console.log(`next question
-      // level: ${this.gameModel._state.level}
-      // index model: ${this.gameModel.index}
-      // lives: ${this.gameModel._state.lives}
-      // answers: ${this.gameModel._state.answersList}`);
-      }
+      this.validateAnswers(answers);
     };
+
     return this.mainNode;
   }
   changeQuestion(index) {
@@ -90,7 +49,10 @@ export default class GameScreen {
     this.currentQuestion = this.changeQuestion(this.gameModel.index);
     this.mainNode.appendChild(this.newHeader.element);
     this.mainNode.appendChild(this.currentQuestion.element);
-    util.changeScreen(this.mainNode);
+    this.currentQuestion.onAnswer = (answers) => {
+      this.validateAnswers(answers);
+    };
+
   }
 
   updateHeader(state) {
@@ -98,13 +60,21 @@ export default class GameScreen {
     this.newHeader = new HeaderView(state);
     this.mainNode.appendChild(this.newHeader.element);
     this.mainNode.appendChild(this.currentQuestion.element);
-
+    this.newHeader.onClickBack = () => {
+      Application.showGreeting();
+    };
   }
 
   tick() {
     this.gameModel._state.time--;
     this.updateHeader(this.gameModel._state);
-    // console.log(this.gameModel._state.time);
+    // if (this.gameModel.isTimeOut()) {
+    //   this.stopTimer();
+    //   this.gameModel._state.answersList.push(gameData.results.wrong);
+    //   this.gameModel.takeLife();
+    //   this.updateHeader();
+    //   this.updateContent();
+    // }
   }
 
   startTimer() {
@@ -119,6 +89,45 @@ export default class GameScreen {
 
   stopTimer() {
     clearTimeout(this.timer);
+  }
+
+  validateAnswers(answers) {
+    let index = this.currentQuestion.questionIndex;
+    switch (index) {
+      case (0):
+        if (answers[0] === this.gameModel.questionsList[0][`answers`][0][`type`] && answers[1] === this.gameModel.questionsList[0][`answers`][1][`type`]) {
+          this.gameModel._state.answersList.push(gameData.results.correct[0]);
+        } else {
+          this.gameModel._state.answersList.push(gameData.results.wrong);
+          this.gameModel.takeLife();
+        }
+        break;
+      case (1):
+        if (answers === this.gameModel.questionsList[1][`answers`][0][`type`]) {
+          this.gameModel._state.answersList.push(gameData.results.correct[0]);
+        } else {
+          this.gameModel._state.answersList.push(gameData.results.wrong);
+          this.gameModel.takeLife();
+        }
+        break;
+      case (2):
+        if (this.gameModel.questionsList[2][`answers`][answers][`type`] === `paint`) {
+          this.gameModel._state.answersList.push(gameData.results.correct[0]);
+        } else {
+          this.gameModel._state.answersList.push(gameData.results.wrong);
+          this.gameModel.takeLife();
+        }
+        break;
+    }
+    this.stopTimer();
+    this.gameModel.nextIndex();
+    this.gameModel.nextLevel();
+    if (this.gameModel.isDead() || this.gameModel.isMaxLevel()) {
+      Application.showStats(this.gameModel);
+    } else {
+      this.updateHeader();
+      this.updateContent();
+    }
   }
 
 }
