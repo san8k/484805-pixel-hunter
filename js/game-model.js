@@ -52,7 +52,7 @@ export default class GameModel {
   }
 
   isTimeOut() {
-    return this._state.time <= 0;
+    return this._state.time < 0;
   }
 
   getAnswerTime() {

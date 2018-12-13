@@ -44,9 +44,7 @@ export default class GameScreen {
   updateContent() {
     this.mainNode.removeChild(this.mainNode.lastChild);
     this.gameModel.resetTimer();
-    this.startTimer();
-
-
+    this.updateHeader(this.gameModel._state);
     this.currentQuestion = this.changeQuestion(this.gameModel.index);
     this.mainNode.appendChild(this.currentQuestion.element);
     this.currentQuestion.onAnswer = (answers) => {
@@ -74,14 +72,13 @@ export default class GameScreen {
   }
 
   startTimer() {
-    this.timer = setTimeout(() => {
+    this.timer = setInterval(() => {
       this.tick();
-      this.startTimer();
     }, 1000);
   }
 
   stopTimer() {
-    clearTimeout(this.timer);
+    clearInterval(this.timer);
   }
 
   validateAnswers(answers) {
@@ -122,8 +119,8 @@ export default class GameScreen {
     if (this.gameModel.isDead() || this.gameModel.isMaxLevel()) {
       Application.showStats(this.gameModel);
     } else {
-      this.updateHeader();
       this.updateContent();
+      this.startTimer();
     }
   }
 
