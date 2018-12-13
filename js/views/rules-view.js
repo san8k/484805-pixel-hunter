@@ -41,7 +41,6 @@ export default class RulesView extends AbstractView {
     });
 
     buttonStartGame.addEventListener(`click`, () => {
-
       this.onClickNext();
     });
   }

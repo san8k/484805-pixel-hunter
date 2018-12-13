@@ -13,14 +13,14 @@ export default class StatsView extends AbstractView {
     const slowAnswersCount = this.gameState.answersList.filter((it) => it === `slow`).length;
     const gameScore = data.calculateScore(this.gameState.answersList, this.gameState.lives);
 
-    const gameResult = () => {
+    const getGameResult = () => {
       if (gameScore !== -1) {
         return `Победа!`;
       } else {
         return `Поражение :(`;
       }
     };
-    const resultTotal = () => {
+    const getResultTotal = () => {
       if (gameScore !== -1) {
         return gameScore;
       } else {
@@ -28,7 +28,7 @@ export default class StatsView extends AbstractView {
       }
     };
 
-    const answersScore = () => {
+    const getAnswersScore = () => {
       if (gameScore !== -1) {
         return gameScore - this.gameState.lives * 50;
       } else {
@@ -36,9 +36,16 @@ export default class StatsView extends AbstractView {
       }
     };
 
+    const getLives = () => {
+      if (this.gameState.lives < 0) {
+        return 0;
+      }
+      return this.gameState.lives;
+    };
+
     return `
     <section class="result">
-    <h2 class="result__title">${gameResult()}</h2>
+    <h2 class="result__title">${getGameResult()}</h2>
     <table class="result__table">
       <tr>
         <td class="result__number">1.</td>
@@ -48,7 +55,7 @@ export default class StatsView extends AbstractView {
           </ul>
         </td>
         <td class="result__points">× 100</td>
-        <td class="result__total">${answersScore()}</td>
+        <td class="result__total">${getAnswersScore()}</td>
       </tr>
       <tr>
         <td></td>
@@ -60,9 +67,9 @@ export default class StatsView extends AbstractView {
       <tr>
         <td></td>
         <td class="result__extra">Бонус за жизни:</td>
-        <td class="result__extra">${this.gameState.lives} <span class="stats__result stats__result--alive"></span></td>
+        <td class="result__extra">${getLives()} <span class="stats__result stats__result--alive"></span></td>
         <td class="result__points">× 50</td>
-        <td class="result__total">${this.gameState.lives * data.POINTS.lifeBonus}</td>
+        <td class="result__total">${getLives() * data.POINTS.lifeBonus}</td>
       </tr>
       <tr>
         <td></td>
@@ -72,7 +79,7 @@ export default class StatsView extends AbstractView {
         <td class="result__total">${slowAnswersCount * data.POINTS.slow}</td>
       </tr>
       <tr>
-        <td colspan="5" class="result__total  result__total--final">${resultTotal()}</td>
+        <td colspan="5" class="result__total  result__total--final">${getResultTotal()}</td>
       </tr>
     </table>
     <table class="result__table">

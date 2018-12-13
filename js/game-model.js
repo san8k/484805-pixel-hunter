@@ -2,8 +2,7 @@ import * as gameData from './data/game-data';
 import * as game from './screens/game';
 
 export default class GameModel {
-  constructor(playerName) {
-    this.playerName = playerName;
+  constructor() {
     this.questionsList = gameData.questions;
     this.restart();
     this.getQuestionIndex();
@@ -40,10 +39,6 @@ export default class GameModel {
     return this._state.level === gameData.MAX_LEVEL;
   }
 
-  startGame() {
-
-  }
-
   restart() {
     this._state = Object.assign({}, gameData.INITIAL_GAME_DATA, {'answersList': []});
   }
@@ -58,6 +53,20 @@ export default class GameModel {
 
   isTimeOut() {
     return this._state.time <= 0;
+  }
+
+  getAnswerTime() {
+    return gameData.ANSWER_TIME.max - this._state.time;
+  }
+
+  getAnswerSpeedType() {
+    if (this.getAnswerTime() <= gameData.ANSWER_TIME.fast) {
+      this._state.answersList.push(gameData.results.correct[2]);
+    } else if (this.getAnswerTime() > gameData.ANSWER_TIME.fast && this.getAnswerTime() <= gameData.ANSWER_TIME.slow) {
+      this._state.answersList.push(gameData.results.correct[0]);
+    } else {
+      this._state.answersList.push(gameData.results.correct[1]);
+    }
   }
 
 }
