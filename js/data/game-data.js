@@ -1,4 +1,5 @@
 export const MAX_LEVEL = 10;
+export const ANSWERS_NUMBER = 10;
 
 export const ANSWER_TIME = {
   fast: 10,

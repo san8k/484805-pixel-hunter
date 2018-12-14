@@ -1,4 +1,5 @@
 const mainElement = document.querySelector(`#main`);
+import * as gameData from './data/game-data';
 
 export const changeScreen = (section) => {
   mainElement.innerHTML = ``;
@@ -6,7 +7,7 @@ export const changeScreen = (section) => {
 };
 
 export const showResults = (results) => {
-  const resultsNode = Array.from({length: 10}).map((it, i) => {
+  const resultsNode = Array.from({length: gameData.ANSWERS_NUMBER}).map((it, i) => {
     return `<li class="stats__result stats__result--${results[i] || `unknown`}"></li>`;
   });
   return resultsNode.join(``);
