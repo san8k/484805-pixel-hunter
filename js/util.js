@@ -6,24 +6,9 @@ export const changeScreen = (section) => {
 };
 
 export const showResults = (results) => {
-  const resultsNode = [
-    `<li class="stats__result stats__result--unknown"></li>`,
-    `<li class="stats__result stats__result--unknown"></li>`,
-    `<li class="stats__result stats__result--unknown"></li>`,
-    `<li class="stats__result stats__result--unknown"></li>`,
-    `<li class="stats__result stats__result--unknown"></li>`,
-    `<li class="stats__result stats__result--unknown"></li>`,
-    `<li class="stats__result stats__result--unknown"></li>`,
-    `<li class="stats__result stats__result--unknown"></li>`,
-    `<li class="stats__result stats__result--unknown"></li>`,
-    `<li class="stats__result stats__result--unknown"></li>`
-  ];
-
-  results.map((it, i) => {
-    it = `<li class="stats__result stats__result--${it}"></li>`;
-    resultsNode[i] = it;
+  const resultsNode = Array.from({length: 10}).map((it, i) => {
+    return `<li class="stats__result stats__result--${results[i] || `unknown`}"></li>`;
   });
-
   return resultsNode.join(``);
 };
 

@@ -49,4 +49,9 @@ export default class HeaderView extends AbstractView {
   }
 
   onClickBack() {}
+
+  updateTime() {
+    const timer = this.element.querySelector(`.game__timer`);
+    timer.textContent = this.gameState.time;
+  }
 }

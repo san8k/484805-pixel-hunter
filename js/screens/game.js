@@ -42,28 +42,23 @@ export default class GameScreen {
   }
 
   updateContent() {
-    this.mainNode.removeChild(this.mainNode.lastChild);
+    this.header = new HeaderView(this.gameModel._state);
     this.gameModel.resetTimer();
-    this.updateHeader(this.gameModel._state);
+    this.mainNode.innerHTML = ``;
+    this.mainNode.appendChild(this.header.element);
     this.currentQuestion = this.changeQuestion(this.gameModel.index);
     this.mainNode.appendChild(this.currentQuestion.element);
     this.currentQuestion.onAnswer = (answers) => {
       this.validateAnswers(answers);
     };
-  }
-
-  updateHeader(state) {
-    this.mainNode.removeChild(this.mainNode.firstChild);
-    this.newHeader = new HeaderView(state);
-    this.mainNode.insertBefore(this.newHeader.element, this.mainNode.lastChild);
-    this.newHeader.onClickBack = () => {
+    this.header.onClickBack = () => {
       Application.showGreeting();
     };
   }
 
   tick() {
     this.gameModel._state.time--;
-    this.updateHeader(this.gameModel._state);
+    this.header.updateTime(this.gameModel._state);
     if (this.gameModel.isTimeOut()) {
       this.gameModel._state.answersList.push(gameData.results.wrong);
       this.gameModel.takeLife();
