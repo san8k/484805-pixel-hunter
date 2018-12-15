@@ -9,8 +9,9 @@ export default class GameScreen {
   constructor(gameModel) {
     this.gameModel = gameModel;
     this.questionIndex = this.gameModel.index;
+    this.questionType = this.gameModel.questionsList[this.questionIndex][`type`];
     this.header = new HeaderView(this.gameModel._state);
-    this.currentQuestion = this.changeQuestion(this.gameModel.index);
+    this.currentQuestion = this.changeQuestion(this.questionType);
     this.mainNode = document.createElement(`div`);
     this.start();
 
@@ -24,10 +25,10 @@ export default class GameScreen {
 
     return this.mainNode;
   }
-  changeQuestion(index) {
-    if (index === 0) {
+  changeQuestion(type) {
+    if (type === `two-of-two`) {
       return new TwoPicturesView(this.gameModel);
-    } else if (index === 1) {
+    } else if (type === `tinder-like`) {
       return new OnePictureView(this.gameModel);
     } else {
       return new ThreePicturesView(this.gameModel);

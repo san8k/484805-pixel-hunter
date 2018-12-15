@@ -12,7 +12,7 @@ export default class OnePictureView extends AbstractView {
   get template() {
     return `
       <section class="game">
-      <p class="game__task">${this.questionsList[this.questionIndex][`title`]}</p>
+      <p class="game__task">${this.questionsList[this.questionIndex][`question`]}</p>
       <form class="game__content  game__content--wide">
         ${util.guessTemplate(this.questionsList[this.questionIndex])}
       </form>

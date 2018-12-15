@@ -22,7 +22,7 @@ export const getAnswersProgress = (state) => `
 export const guessTemplate = (question) => `
 ${question[`answers`].map((it, i) => `
   <div class="game__option">
-  <img src="${it.picture}" alt="Option ${i + 1}" width="${it.width}" height="${it.height}">
+  <img src="${it.image.url}" alt="Option ${i + 1}" width="${it.image.width}" height="${it.image.height}">
   <label class="game__answer game__answer--photo">
     <input class="visually-hidden" name="question${i + 1}" type="radio" value="photo">
     <span>Фото</span>
@@ -34,4 +34,3 @@ ${question[`answers`].map((it, i) => `
   </div>
   `).join(``)
 }`;
-

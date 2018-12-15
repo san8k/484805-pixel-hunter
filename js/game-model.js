@@ -2,8 +2,9 @@ import * as gameData from './data/game-data';
 import * as game from './screens/game';
 
 export default class GameModel {
-  constructor() {
-    this.questionsList = gameData.questions;
+  constructor(loadedData) {
+
+    this.questionsList = loadedData;
     this.restart();
     this.getQuestionIndex();
   }
@@ -18,9 +19,6 @@ export default class GameModel {
 
   nextIndex() {
     this.index++;
-    if (this.index > 2) {
-      this.index = 0;
-    }
   }
 
   nextLevel() {

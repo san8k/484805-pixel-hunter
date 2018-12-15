@@ -1,13 +1,5 @@
 import AbstractView from '../abstract-view';
 import * as util from '../util';
-import * as gameData from '../data/game-data';
-
-const findPaintingTemplate = `
-${gameData.questions[2][`answers`].map((it, i) => `
-  <div class="game__option">
-  <img src="${it.picture}" alt="Option ${i + 1}" width="304" height="455">
-  </div>`).join(``)
-}`;
 
 export default class ThreePicturesView extends AbstractView {
   constructor(gameModel) {
@@ -20,9 +12,12 @@ export default class ThreePicturesView extends AbstractView {
   get template() {
     return `
       <section class="game">
-      <p class="game__task">${this.questionsList[this.questionIndex][`title`]}</p>
+      <p class="game__task">${this.questionsList[this.questionIndex][`question`]}</p>
       <form class="game__content  game__content--triple">
-        ${findPaintingTemplate}
+      ${this.questionsList[this.questionIndex][`answers`].map((it, i) => `
+      <div class="game__option">
+      <img src="${it.image.url}" alt="Option ${i + 1}" width=${it.image.width} height=${it.image.height}>
+      </div>`).join(``)}
       </form>
       ${util.getAnswersProgress(this.gameModel._state)}
       </section>
