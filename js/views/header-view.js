@@ -1,9 +1,13 @@
 import AbstractView from '../abstract-view';
 
+const BLINK_TIME = 5;
+const BLINK_PERIOD = 500;
+
 export default class HeaderView extends AbstractView {
   constructor(state) {
     super();
     this.gameState = state;
+    this.timer = this.element.querySelector(`.game__timer`);
   }
 
   get template() {
@@ -51,7 +55,18 @@ export default class HeaderView extends AbstractView {
   onClickBack() {}
 
   updateTime() {
-    const timer = this.element.querySelector(`.game__timer`);
-    timer.textContent = this.gameState.time;
+    if (this.gameState.time <= BLINK_TIME) {
+      let flag = false;
+      setInterval(() => {
+        if (flag) {
+          this.timer.style = `color: #dd4f52;`;
+          flag = false;
+        } else {
+          this.timer.style = `color: black;`;
+          flag = true;
+        }
+      }, BLINK_PERIOD);
+    }
+    this.timer.textContent = this.gameState.time;
   }
 }

@@ -7,6 +7,8 @@ import GameScreen from './screens/game';
 import StatsScreen from './screens/stats';
 import ErrorScreen from './screens/error';
 
+const DATA_URL = `https://es.dump.academy/pixel-hunter/questions`;
+
 const checkStatus = (response) => {
   if (response.status >= 200 && response.status < 300) {
     return response;
@@ -21,7 +23,7 @@ export default class Application {
 
   static start() {
     Application.showIntro();
-    window.fetch(`https://es.dump.academy/pixel-hunter/questions`).
+    window.fetch(DATA_URL).
     then(checkStatus).
     then((response) => {
       return response.json();
@@ -30,7 +32,7 @@ export default class Application {
       loadedData = data;
       return loadedData;
     }).
-    then((response) => this.showGreeting()).
+    then(() => this.showGreeting()).
     catch(this.showError);
   }
 

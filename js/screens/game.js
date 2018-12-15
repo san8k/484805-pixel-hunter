@@ -5,6 +5,8 @@ import TwoPicturesView from '../views/two-pictures-view';
 import OnePictureView from '../views/one-picture-view';
 import ThreePicturesView from '../views/three-pictures-view';
 
+const ONE_SECOND = 1000;
+
 export default class GameScreen {
   constructor(gameModel) {
     this.gameModel = gameModel;
@@ -57,7 +59,7 @@ export default class GameScreen {
 
   tick() {
     this.gameModel._state.time--;
-    this.header.updateTime(this.gameModel._state);
+    this.header.updateTime();
     if (this.gameModel.isTimeOut()) {
       this.gameModel._state.answersList.push(gameData.results.wrong);
       this.gameModel.takeLife();
@@ -68,7 +70,7 @@ export default class GameScreen {
   startTimer() {
     this.timer = setInterval(() => {
       this.tick();
-    }, 1000);
+    }, ONE_SECOND);
   }
 
   stopTimer() {
