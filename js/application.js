@@ -6,35 +6,13 @@ import RulesScreen from './screens/rules';
 import GameScreen from './screens/game';
 import StatsScreen from './screens/stats';
 import ErrorScreen from './screens/error';
-
-const DATA_URL = `https://es.dump.academy/pixel-hunter/questions`;
-
-const checkStatus = (response) => {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  } else {
-    throw new Error(`Ошибка ${response.status}: ${response.statusText}`);
-  }
-};
-
-let loadedData;
+import Loader, {loadedData} from './loader';
 
 export default class Application {
 
   static start() {
     Application.showIntro();
-    window.fetch(DATA_URL).
-    then(checkStatus).
-    then((response) => {
-      return response.json();
-    }).
-    then((data) => {
-      loadedData = data;
-      return loadedData;
-    }).
-    then(() => this.showGreeting()).
-    catch(this.showError);
-
+    Loader.loadData();
   }
 
   static getGameModel() {
@@ -63,8 +41,20 @@ export default class Application {
   }
 
   static showStats(model) {
-    const stats = new StatsScreen(model);
-    changeScreen(stats);
+    const playerName = model.playerName;
+    const postData = {
+      'playerName': playerName,
+      'answers': model._state.answersList,
+      'lives': model._state.lives
+    };
+
+    Loader.saveResults(postData, playerName).
+    then(() => Loader.loadResults(playerName)).
+    then((resultsData) => {
+      const stats = new StatsScreen(resultsData);
+      changeScreen(stats);
+    }).
+    catch(Application.showError);
   }
 
   static showError(error) {

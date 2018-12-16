@@ -27,10 +27,11 @@ export const INITIAL_GAME_DATA = Object.freeze({
   answersList: []
 });
 
-export const results = {
-  correct: [`correct`, `slow`, `fast`],
-  wrong: `wrong`,
-  unknown: `unknown`
+export const RESULTS = {
+  correct: `correct`,
+  slow: `slow`,
+  fast: `fast`,
+  wrong: `wrong`
 };
 
 export const calculateScore = (answers, lives) => {
@@ -40,13 +41,13 @@ export const calculateScore = (answers, lives) => {
   let scores = lives * POINTS.lifeBonus;
   answers.forEach((it) => {
     switch (it) {
-      case results.correct[0]:
+      case RESULTS.correct:
         scores += POINTS.correct;
         break;
-      case results.correct[1]:
+      case RESULTS.slow:
         scores += POINTS.correct + POINTS.slow;
         break;
-      case results.correct[2]:
+      case RESULTS.fast:
         scores += POINTS.correct + POINTS.fast;
         break;
     }

@@ -1,19 +1,17 @@
 import AbstractView from '../abstract-view';
 import * as data from '../data/game-data';
-import * as testData from '../data/test-data';
 import {showResults} from '../util';
 
 export default class StatsView extends AbstractView {
-  constructor(gameModel) {
+  constructor(results) {
     super();
-    this.gameState = gameModel._state;
+    this.results = results;
   }
   get template() {
-    const correctAnswersCount = this.gameState.answersList.filter((it) => it === `correct`).length;
-    const fastAnswersCount = this.gameState.answersList.filter((it) => it === `fast`).length;
-    const slowAnswersCount = this.gameState.answersList.filter((it) => it === `slow`).length;
-    const gameScore = data.calculateScore(this.gameState.answersList, this.gameState.lives);
-
+    const correctAnswersCount = this.results[this.results.length - 1].answers.filter((it) => it === `correct`).length;
+    const fastAnswersCount = this.results[this.results.length - 1].answers.filter((it) => it === `fast`).length;
+    const slowAnswersCount = this.results[this.results.length - 1].answers.filter((it) => it === `slow`).length;
+    const gameScore = data.calculateScore(this.results[this.results.length - 1].answers, this.results[this.results.length - 1].lives);
     const getGameResult = () => {
       if (gameScore !== -1) {
         return `Победа!`;
@@ -38,10 +36,10 @@ export default class StatsView extends AbstractView {
     };
 
     const getLives = () => {
-      if (this.gameState.lives < 0) {
+      if (this.results[this.results.length - 1].lives < 0) {
         return 0;
       }
-      return this.gameState.lives;
+      return this.results[this.results.length - 1].lives;
     };
 
     return `
@@ -52,7 +50,7 @@ export default class StatsView extends AbstractView {
         <td class="result__number">1.</td>
         <td colspan="2">
           <ul class="stats">
-            ${showResults(this.gameState.answersList)}
+            ${showResults(this.results[this.results.length - 1].answers)}
           </ul>
         </td>
         <td class="result__points">× 100</td>
@@ -88,7 +86,7 @@ export default class StatsView extends AbstractView {
         <td class="result__number">2.</td>
         <td>
           <ul class="stats">
-            ${showResults(testData.testResults)}
+            ${showResults(``)}
           </ul>
         </td>
         <td class="result__total"></td>
@@ -100,7 +98,7 @@ export default class StatsView extends AbstractView {
         <td class="result__number">3.</td>
         <td colspan="2">
           <ul class="stats">
-          ${showResults(testData.testResults)}
+          ${showResults(``)}
           </ul>
         </td>
         <td class="result__points">× 100</td>
@@ -120,4 +118,5 @@ export default class StatsView extends AbstractView {
     </section>
     `;
   }
+
 }

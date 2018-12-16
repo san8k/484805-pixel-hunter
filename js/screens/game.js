@@ -61,7 +61,7 @@ export default class GameScreen {
     this.gameModel._state.time--;
     this.header.updateTime();
     if (this.gameModel.isTimeOut()) {
-      this.gameModel._state.answersList.push(gameData.results.wrong);
+      this.gameModel._state.answersList.push(gameData.RESULTS.wrong);
       this.gameModel.takeLife();
       this.checkState();
     }
@@ -84,7 +84,7 @@ export default class GameScreen {
         if (answers[0] === this.gameModel.questionsList[this.gameModel.index][`answers`][0][`type`] && answers[1] === this.gameModel.questionsList[this.gameModel.index][`answers`][1][`type`]) {
           this.gameModel.getAnswerSpeedType();
         } else {
-          this.gameModel._state.answersList.push(gameData.results.wrong);
+          this.gameModel._state.answersList.push(gameData.RESULTS.wrong);
           this.gameModel.takeLife();
         }
         break;
@@ -92,7 +92,7 @@ export default class GameScreen {
         if (answers === this.gameModel.questionsList[this.gameModel.index][`answers`][0][`type`]) {
           this.gameModel.getAnswerSpeedType();
         } else {
-          this.gameModel._state.answersList.push(gameData.results.wrong);
+          this.gameModel._state.answersList.push(gameData.RESULTS.wrong);
           this.gameModel.takeLife();
         }
         break;
@@ -100,7 +100,7 @@ export default class GameScreen {
         if (this.gameModel.questionsList[this.gameModel.index][`answers`][answers][`type`] === this.defineOneOfThreeResult()) {
           this.gameModel.getAnswerSpeedType();
         } else {
-          this.gameModel._state.answersList.push(gameData.results.wrong);
+          this.gameModel._state.answersList.push(gameData.RESULTS.wrong);
           this.gameModel.takeLife();
         }
         break;

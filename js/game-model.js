@@ -60,11 +60,11 @@ export default class GameModel {
 
   getAnswerSpeedType() {
     if (this.getAnswerTime() <= gameData.ANSWER_TIME.fast) {
-      this._state.answersList.push(gameData.results.correct[2]);
+      this._state.answersList.push(gameData.RESULTS.fast);
     } else if (this.getAnswerTime() > gameData.ANSWER_TIME.fast && this.getAnswerTime() <= gameData.ANSWER_TIME.slow) {
-      this._state.answersList.push(gameData.results.correct[0]);
+      this._state.answersList.push(gameData.RESULTS.correct);
     } else {
-      this._state.answersList.push(gameData.results.correct[1]);
+      this._state.answersList.push(gameData.RESULTS.slow);
     }
   }
 

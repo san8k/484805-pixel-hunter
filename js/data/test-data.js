@@ -1,36 +1,37 @@
 import * as data from './game-data';
 
-export const testResults = [ // Тестовые данные для отображения шкалы ответов
-  data.results.correct[0],
-  data.results.correct[1],
-  data.results.correct[2],
-  data.results.wrong,
-  data.results.wrong,
-  data.results.correct[0],
-  data.results.correct[1],
-  data.results.correct[2],
-  data.results.unknown,
-  data.results.unknown
+export const testResults = [
+  data.RESULTS.correct,
+  data.RESULTS.fast,
+  data.RESULTS.correct,
+  data.RESULTS.wrong,
+  data.RESULTS.wrong,
+  data.RESULTS.correct,
+  data.RESULTS.slow,
+  data.RESULTS.correct,
+  data.RESULTS.slow,
+  data.RESULTS.fast
 ];
 
 export const averageAnswers = [
-  data.results.correct[0],
-  data.results.correct[0],
-  data.results.correct[0],
-  data.results.correct[0],
-  data.results.correct[0],
-  data.results.correct[0],
-  data.results.correct[0],
-  data.results.correct[0],
-  data.results.correct[0],
-  data.results.correct[0]
+  data.RESULTS.correct,
+  data.RESULTS.correct,
+  data.RESULTS.correct,
+  data.RESULTS.correct,
+  data.RESULTS.correct,
+  data.RESULTS.correct,
+  data.RESULTS.correct,
+  data.RESULTS.correct,
+  data.RESULTS.correct,
+  data.RESULTS.correct,
+  data.RESULTS.correct
 ];
 
 export const failGame = [
-  data.results.correct[0],
-  data.results.correct[2],
-  data.results.wrong,
-  data.results.wrong,
-  data.results.wrong,
-  data.results.wrong
+  data.RESULTS.correct,
+  data.RESULTS.correct,
+  data.RESULTS.wrong,
+  data.RESULTS.wrong,
+  data.RESULTS.wrong,
+  data.RESULTS.wrong
 ];
