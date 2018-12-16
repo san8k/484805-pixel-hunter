@@ -2,9 +2,10 @@ import * as gameData from './data/game-data';
 import * as game from './screens/game';
 
 export default class GameModel {
-  constructor(loadedData) {
+  constructor(loadedData, playerName = ``) {
 
     this.questionsList = loadedData;
+    this.playerName = playerName;
     this.restart();
     this.getQuestionIndex();
   }

@@ -3,9 +3,9 @@ import HeaderView from '../views/header-view';
 import Application from '../application';
 
 export default class RulesScreen {
-  constructor() {
+  constructor(gameModel) {
     this.header = new HeaderView();
-    this.rules = new RulesView();
+    this.rules = new RulesView(gameModel);
     const mainNode = document.createElement(`div`);
     mainNode.
       appendChild(this.header.element).

@@ -34,6 +34,11 @@ export default class Application {
     }).
     then(() => this.showGreeting()).
     catch(this.showError);
+
+  }
+
+  static getGameModel() {
+    this.gameModel = new GameModel(loadedData);
   }
 
   static showIntro() {
@@ -47,12 +52,13 @@ export default class Application {
   }
 
   static showRules() {
-    const rules = new RulesScreen();
+    this.getGameModel();
+    const rules = new RulesScreen(this.gameModel);
     changeScreen(rules);
   }
 
   static showGame() {
-    const game = new GameScreen(new GameModel(loadedData));
+    const game = new GameScreen(this.gameModel);
     changeScreen(game);
   }
 
