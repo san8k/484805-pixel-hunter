@@ -24,7 +24,6 @@ export const averageAnswers = [
   data.RESULTS.correct,
   data.RESULTS.correct,
   data.RESULTS.correct,
-  data.RESULTS.correct
 ];
 
 export const failGame = [
