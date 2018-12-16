@@ -18,6 +18,22 @@
   line-height: 45px;
 }
 
+.blink {
+  animation: blinking 1s infinite linear;
+  transform: scale(1.5);
+  color: red;
+}
+
+@keyframes blinking {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
 .game__task {
   margin: 20px 0;
 
