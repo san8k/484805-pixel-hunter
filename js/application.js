@@ -21,13 +21,14 @@ export default class Application {
   }
 
   static showIntro() {
-    const intro = new IntroScreen();
-    changeScreen(intro);
+    this.intro = new IntroScreen();
+    changeScreen(this.intro);
   }
 
   static showGreeting() {
     const greeting = new GreetingScreen();
     changeScreen(greeting);
+    greeting.classList.add(`greeting__show`);
   }
 
   static showRules() {
@@ -68,5 +69,12 @@ export default class Application {
     const confirmPopup = new ConfirmScreen();
     const body = document.querySelector(`body`);
     body.appendChild(confirmPopup);
+  }
+
+  static introToGreeting() {
+    this.intro.classList.add(`intro__out`);
+    setTimeout(() => {
+      this.showGreeting();
+    }, 1000);
   }
 }

@@ -29,7 +29,7 @@ export default class Loader {
       loadedData = data;
       return loadedData;
     }).
-    then(() => Application.showGreeting()).
+    then(() => Application.introToGreeting()).
     catch(Application.showError);
   }
 
