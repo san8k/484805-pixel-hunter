@@ -4,6 +4,7 @@ import Application from '../application';
 
 export default class RulesScreen {
   constructor(gameModel) {
+    this.gameModel = gameModel;
     this.header = new HeaderView();
     this.rules = new RulesView(gameModel);
     const mainNode = document.createElement(`div`);
@@ -15,6 +16,9 @@ export default class RulesScreen {
     };
     this.header.onClickBack = () => {
       Application.showGreeting();
+    };
+    this.rules.saveName = () => {
+      this.gameModel.playerName = mainNode.querySelector(`.rules__input`).value.trim();
     };
     return mainNode;
   }

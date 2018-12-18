@@ -16,7 +16,7 @@ export default class GameScreen {
     this.start();
 
     this.header.onClickBack = () => {
-      Application.showGreeting();
+      Application.showConfirm();
     };
 
     this.currentQuestion.onAnswer = (answers) => {
@@ -53,7 +53,7 @@ export default class GameScreen {
       this.validateAnswers(answers);
     };
     this.header.onClickBack = () => {
-      Application.showGreeting();
+      Application.showConfirm();
     };
   }
 

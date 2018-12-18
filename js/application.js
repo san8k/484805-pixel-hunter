@@ -7,6 +7,7 @@ import GameScreen from './screens/game';
 import StatsScreen from './screens/stats';
 import ErrorScreen from './screens/error';
 import Loader, {loadedData} from './loader';
+import ConfirmScreen from './screens/confirm';
 
 export default class Application {
 
@@ -58,8 +59,14 @@ export default class Application {
   }
 
   static showError(error) {
-    const errorScreen = new ErrorScreen(error);
+    const errorPopup = new ErrorScreen(error);
     const body = document.querySelector(`body`);
-    body.appendChild(errorScreen);
+    body.appendChild(errorPopup);
+  }
+
+  static showConfirm() {
+    const confirmPopup = new ConfirmScreen();
+    const body = document.querySelector(`body`);
+    body.appendChild(confirmPopup);
   }
 }

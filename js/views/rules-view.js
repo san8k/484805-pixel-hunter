@@ -40,11 +40,12 @@ export default class RulesView extends AbstractView {
     });
 
     buttonStartGame.addEventListener(`click`, () => {
-      this.gameModel.playerName = inputPlayerName.value.trim();
+      this.saveName();
       this.onClickNext();
     });
   }
 
+  saveName() {}
   onClickNext() {}
 }
 
