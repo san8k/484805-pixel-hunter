@@ -1,5 +1,6 @@
 import AbstractView from '../abstract-view';
 import * as util from '../util';
+import * as settings from '../settings';
 
 export default class ThreePicturesView extends AbstractView {
   constructor(gameModel) {
@@ -15,7 +16,7 @@ export default class ThreePicturesView extends AbstractView {
       <p class="game__task">${this.questionsList[this.questionIndex][`question`]}</p>
       <form class="game__content  game__content--triple">
       ${this.questionsList[this.questionIndex][`answers`].map((it, i) => `
-      <div class="game__option">
+      <div class="game__option" ${settings.DEBUG && it[`type`] !== this.questionsList[this.questionIndex][`answers`][1][`type`] ? settings.DEBUG_STYLE : ``}>
       <img src="${it.image.url}" alt="Option ${i + 1}" width=${it.image.width} height=${it.image.height}>
       </div>`).join(``)}
       </form>
@@ -26,11 +27,14 @@ export default class ThreePicturesView extends AbstractView {
 
   bind() {
     const gameForm = this.element.querySelector(`.game__content`);
-    const options = Array.from(gameForm.querySelectorAll(`img`));
-    options.forEach((element, i) => {
+    const options = Array.from(gameForm.querySelectorAll(`.game__option`));
+    const images = Array.from(gameForm.querySelectorAll(`img`));
+    images.forEach((element) => {
       element.addEventListener(`load`, () => {
         this.onResize(element);
       });
+    });
+    options.forEach((element, i) => {
       element.addEventListener(`click`, () => {
         this.onAnswer(i);
       });
