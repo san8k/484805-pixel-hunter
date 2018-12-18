@@ -19,7 +19,7 @@ export default class StatsView extends AbstractView {
 
     let resultsTemplates = [];
     this.results.forEach((result, i) => {
-      if (result.lives && result.answers) {
+      if ((`lives` in result) && (`answers` in result)) {
         resultsTemplates.push(result.lives >= 0 ? this.getWinTemplate(result, i + 1) : this.getFailTemplate(result, i + 1));
       } else {
         resultsTemplates.push(this.getGameDataErrorTemplate(i + 1));
