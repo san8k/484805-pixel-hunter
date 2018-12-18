@@ -21,15 +21,15 @@ export const getAnswersProgress = (state) => `
   </ul>
   `;
 
-export const guessTemplate = (question) => `
+export const guessTemplate = (question, gameModel) => `
 ${question[`answers`].map((it, i) => `
   <div class="game__option">
   <img src="${it.image.url}" alt="Option ${i + 1}" width="${it.image.width}" height="${it.image.height}">
-  <label class="game__answer game__answer--photo" ${settings.DEBUG && it[`type`] === `photo` ? settings.DEBUG_STYLE : ``}>
+  <label class="game__answer game__answer--photo" ${settings.isDebug(gameModel.playerName) && it[`type`] === `photo` ? settings.DEBUG_STYLE : ``}>
     <input class="visually-hidden" name="question${i + 1}" type="radio" value="photo">
     <span>Фото</span>
   </label>
-  <label class="game__answer game__answer--paint" ${settings.DEBUG && it[`type`] === `painting` ? settings.DEBUG_STYLE : ``}>
+  <label class="game__answer game__answer--paint" ${settings.isDebug(gameModel.playerName) && it[`type`] === `painting` ? settings.DEBUG_STYLE : ``}>
     <input class="visually-hidden" name="question${i + 1}" type="radio" value="painting">
     <span>Рисунок</span>
   </label>

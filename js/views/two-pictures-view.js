@@ -14,7 +14,7 @@ export default class TwoPicturesView extends AbstractView {
       <section class="game">
       <p class="game__task">${this.questionsList[this.questionIndex][`question`]}</p>
       <form class="game__content">
-        ${util.guessTemplate(this.questionsList[this.questionIndex])}
+        ${util.guessTemplate(this.questionsList[this.questionIndex], this.gameModel)}
       </form>
       ${util.getAnswersProgress(this.gameModel._state)}
       </section>

@@ -16,7 +16,7 @@ export default class ThreePicturesView extends AbstractView {
       <p class="game__task">${this.questionsList[this.questionIndex][`question`]}</p>
       <form class="game__content  game__content--triple">
       ${this.questionsList[this.questionIndex][`answers`].map((it, i) => `
-      <div class="game__option" ${settings.DEBUG && it[`type`] !== this.questionsList[this.questionIndex][`answers`][1][`type`] ? settings.DEBUG_STYLE : ``}>
+      <div class="game__option" ${settings.isDebug(this.gameModel.playerName) && it[`type`] !== this.questionsList[this.questionIndex][`answers`][1][`type`] ? settings.DEBUG_STYLE : ``}>
       <img src="${it.image.url}" alt="Option ${i + 1}" width=${it.image.width} height=${it.image.height}>
       </div>`).join(``)}
       </form>
