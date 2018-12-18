@@ -29,7 +29,7 @@ export default class StatsView extends AbstractView {
     return `
     <section class="result">
     <h2 class="result__title">${getGameResult()}</h2>
-    ${resultsTemplates.join(``)}
+    ${resultsTemplates.reverse().join(``)}
     </section>
     `;
   }

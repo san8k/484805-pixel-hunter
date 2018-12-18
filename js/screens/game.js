@@ -11,28 +11,9 @@ const ONE_SECOND = 1000;
 export default class GameScreen {
   constructor(gameModel) {
     this.gameModel = gameModel;
-    this.header = new HeaderView(this.gameModel._state);
-    this.currentQuestion = this.changeQuestion(this.gameModel.questionsList[this.gameModel.index][`type`]);
     this.mainNode = document.createElement(`div`);
-    this.start();
-    this.header.onClickBack = () => {
-      Application.showConfirm();
-    };
-    this.currentQuestion.onResize = (image) => {
-      const imageBox = resize({
-        width: image.parentElement.clientWidth,
-        height: image.parentElement.clientHeight
-      }, {
-        width: image.naturalWidth,
-        height: image.naturalHeight
-      });
-      image.style.width = imageBox.width + `px`;
-      image.style.height = imageBox.height + `px`;
-    };
-    this.currentQuestion.onAnswer = (answers) => {
-      this.validateAnswers(answers);
-    };
-
+    this.startTimer();
+    this.updateContent();
     return this.mainNode;
   }
   changeQuestion(type) {
@@ -45,19 +26,11 @@ export default class GameScreen {
     }
   }
 
-  start() {
-    this.mainNode.innerHTML = ``;
-    this.mainNode.appendChild(this.header.element);
-    this.mainNode.appendChild(this.currentQuestion.element);
-    this.startTimer();
-  }
-
   updateContent() {
-    this.gameModel.resetTimer();
     this.header = new HeaderView(this.gameModel._state);
+    this.currentQuestion = this.changeQuestion(this.gameModel.questionsList[this.gameModel.index][`type`]);
     this.mainNode.innerHTML = ``;
     this.mainNode.appendChild(this.header.element);
-    this.currentQuestion = this.changeQuestion(this.gameModel.questionsList[this.gameModel.index][`type`]);
     this.mainNode.appendChild(this.currentQuestion.element);
     this.currentQuestion.onResize = (image) => {
       const imageBox = resize({
@@ -70,11 +43,11 @@ export default class GameScreen {
       image.style.width = imageBox.width + `px`;
       image.style.height = imageBox.height + `px`;
     };
-    this.currentQuestion.onAnswer = (answers) => {
-      this.validateAnswers(answers);
-    };
     this.header.onClickBack = () => {
       Application.showConfirm();
+    };
+    this.currentQuestion.onAnswer = (answers) => {
+      this.validateAnswers(answers);
     };
   }
 
@@ -137,6 +110,7 @@ export default class GameScreen {
       Application.showStats(this.gameModel);
     } else {
       this.updateContent();
+      this.gameModel.resetTimer();
       this.startTimer();
     }
   }
