@@ -91,21 +91,21 @@ export default class StatsView extends AbstractView {
       <td class="result__extra">Бонус за скорость:</td>
       <td class="result__extra">${fastAnswersCount} <span class="stats__result stats__result--fast"></span></td>
       <td class="result__points">× 50</td>
-      <td class="result__total">${fastAnswersCount * gameData.POINTS.fast}</td>
+      <td class="result__total">${fastAnswersCount * gameData.Points.FAST}</td>
     </tr>
     <tr>
       <td></td>
       <td class="result__extra">Бонус за жизни:</td>
       <td class="result__extra">${getLives()} <span class="stats__result stats__result--alive"></span></td>
       <td class="result__points">× 50</td>
-      <td class="result__total">${getLives() * gameData.POINTS.lifeBonus}</td>
+      <td class="result__total">${getLives() * gameData.Points.LIFE_BONUS}</td>
     </tr>
     <tr>
       <td></td>
       <td class="result__extra">Штраф за медлительность:</td>
       <td class="result__extra">${slowAnswersCount} <span class="stats__result stats__result--slow"></span></td>
       <td class="result__points">× 50</td>
-      <td class="result__total">${slowAnswersCount * gameData.POINTS.slow}</td>
+      <td class="result__total">${slowAnswersCount * gameData.Points.SLOW}</td>
     </tr>
     <tr>
       <td colspan="5" class="result__total  result__total--final">${getResultTotal()}</td>

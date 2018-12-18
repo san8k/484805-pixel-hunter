@@ -47,7 +47,7 @@ export default class GameModel {
   }
 
   resetTimer() {
-    this._state.time = gameData.ANSWER_TIME.max;
+    this._state.time = gameData.AnswerTime.MAX;
   }
 
   isTimeOut() {
@@ -55,16 +55,16 @@ export default class GameModel {
   }
 
   getAnswerTime() {
-    return gameData.ANSWER_TIME.max - this._state.time;
+    return gameData.AnswerTime.MAX - this._state.time;
   }
 
   getAnswerSpeedType() {
-    if (this.getAnswerTime() <= gameData.ANSWER_TIME.fast) {
-      this._state.answersList.push(gameData.RESULTS.fast);
-    } else if (this.getAnswerTime() > gameData.ANSWER_TIME.fast && this.getAnswerTime() <= gameData.ANSWER_TIME.slow) {
-      this._state.answersList.push(gameData.RESULTS.correct);
+    if (this.getAnswerTime() <= gameData.AnswerTime.FAST) {
+      this._state.answersList.push(gameData.Results.FAST);
+    } else if (this.getAnswerTime() > gameData.AnswerTime.FAST && this.getAnswerTime() <= gameData.AnswerTime.SLOW) {
+      this._state.answersList.push(gameData.Results.CORRECT);
     } else {
-      this._state.answersList.push(gameData.RESULTS.slow);
+      this._state.answersList.push(gameData.Results.SLOW);
     }
   }
 

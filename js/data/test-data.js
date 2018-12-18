@@ -1,36 +1,36 @@
 import * as data from './game-data';
 
 export const testResults = [
-  data.RESULTS.correct,
-  data.RESULTS.fast,
-  data.RESULTS.correct,
-  data.RESULTS.wrong,
-  data.RESULTS.wrong,
-  data.RESULTS.correct,
-  data.RESULTS.slow,
-  data.RESULTS.correct,
-  data.RESULTS.slow,
-  data.RESULTS.fast
+  data.Results.CORRECT,
+  data.Results.FAST,
+  data.Results.CORRECT,
+  data.Results.WRONG,
+  data.Results.WRONG,
+  data.Results.CORRECT,
+  data.Results.SLOW,
+  data.Results.CORRECT,
+  data.Results.SLOW,
+  data.Results.FAST
 ];
 
 export const averageAnswers = [
-  data.RESULTS.correct,
-  data.RESULTS.correct,
-  data.RESULTS.correct,
-  data.RESULTS.correct,
-  data.RESULTS.correct,
-  data.RESULTS.correct,
-  data.RESULTS.correct,
-  data.RESULTS.correct,
-  data.RESULTS.correct,
-  data.RESULTS.correct,
+  data.Results.CORRECT,
+  data.Results.CORRECT,
+  data.Results.CORRECT,
+  data.Results.CORRECT,
+  data.Results.CORRECT,
+  data.Results.CORRECT,
+  data.Results.CORRECT,
+  data.Results.CORRECT,
+  data.Results.CORRECT,
+  data.Results.CORRECT,
 ];
 
 export const failGame = [
-  data.RESULTS.correct,
-  data.RESULTS.correct,
-  data.RESULTS.wrong,
-  data.RESULTS.wrong,
-  data.RESULTS.wrong,
-  data.RESULTS.wrong
+  data.Results.CORRECT,
+  data.Results.CORRECT,
+  data.Results.WRONG,
+  data.Results.WRONG,
+  data.Results.WRONG,
+  data.Results.WRONG
 ];
