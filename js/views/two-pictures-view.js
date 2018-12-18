@@ -23,6 +23,12 @@ export default class TwoPicturesView extends AbstractView {
 
   bind() {
     const gameForm = this.element.querySelector(`.game__content`);
+    const images = gameForm.querySelectorAll(`img`);
+    images.forEach((element) => {
+      element.addEventListener(`load`, () => {
+        this.onResize(element);
+      });
+    });
     gameForm.addEventListener(`change`, () => {
       const answers = Array.from(gameForm.querySelectorAll(`input[type='radio']:checked`)).map((it) => it.value);
       if (answers.length === this.questionsList[this.questionIndex][`answers`].length) {
@@ -30,5 +36,6 @@ export default class TwoPicturesView extends AbstractView {
       }
     });
   }
+  onResize() {}
   onAnswer() {}
 }

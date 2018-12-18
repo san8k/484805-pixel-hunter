@@ -17,8 +17,8 @@ export default class RulesScreen {
     this.header.onClickBack = () => {
       Application.showGreeting();
     };
-    this.rules.saveName = () => {
-      this.gameModel.playerName = mainNode.querySelector(`.rules__input`).value.trim();
+    this.rules.onSaveName = (name) => {
+      this.gameModel.playerName = name;
     };
     return mainNode;
   }

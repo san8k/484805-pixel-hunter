@@ -28,11 +28,15 @@ export default class ThreePicturesView extends AbstractView {
     const gameForm = this.element.querySelector(`.game__content`);
     const options = Array.from(gameForm.querySelectorAll(`img`));
     options.forEach((element, i) => {
+      element.addEventListener(`load`, () => {
+        this.onResize(element);
+      });
       element.addEventListener(`click`, () => {
         this.onAnswer(i);
       });
     });
 
   }
+  onResize() {}
   onAnswer() {}
 }

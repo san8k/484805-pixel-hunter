@@ -4,6 +4,7 @@ import HeaderView from '../views/header-view';
 import TwoPicturesView from '../views/two-pictures-view';
 import OnePictureView from '../views/one-picture-view';
 import ThreePicturesView from '../views/three-pictures-view';
+import resize from '../resizer';
 
 const ONE_SECOND = 1000;
 
@@ -14,11 +15,20 @@ export default class GameScreen {
     this.currentQuestion = this.changeQuestion(this.gameModel.questionsList[this.gameModel.index][`type`]);
     this.mainNode = document.createElement(`div`);
     this.start();
-
     this.header.onClickBack = () => {
       Application.showConfirm();
     };
-
+    this.currentQuestion.onResize = (image) => {
+      const imageBox = resize({
+        width: image.parentElement.clientWidth,
+        height: image.parentElement.clientHeight
+      }, {
+        width: image.naturalWidth,
+        height: image.naturalHeight
+      });
+      image.style.width = imageBox.width + `px`;
+      image.style.height = imageBox.height + `px`;
+    };
     this.currentQuestion.onAnswer = (answers) => {
       this.validateAnswers(answers);
     };
@@ -49,6 +59,17 @@ export default class GameScreen {
     this.mainNode.appendChild(this.header.element);
     this.currentQuestion = this.changeQuestion(this.gameModel.questionsList[this.gameModel.index][`type`]);
     this.mainNode.appendChild(this.currentQuestion.element);
+    this.currentQuestion.onResize = (image) => {
+      const imageBox = resize({
+        width: image.parentElement.clientWidth,
+        height: image.parentElement.clientHeight
+      }, {
+        width: image.naturalWidth,
+        height: image.naturalHeight
+      });
+      image.style.width = imageBox.width + `px`;
+      image.style.height = imageBox.height + `px`;
+    };
     this.currentQuestion.onAnswer = (answers) => {
       this.validateAnswers(answers);
     };

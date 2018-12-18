@@ -24,11 +24,16 @@ export default class OnePictureView extends AbstractView {
   bind() {
     const gameForm = this.element.querySelector(`.game__content`);
     const answers = Array.from(gameForm.querySelectorAll(`input[type='radio']`));
+    const image = gameForm.querySelector(`img`);
     answers.forEach((element) => {
       element.addEventListener(`change`, () => {
         this.onAnswer(element.value);
       });
     });
+    image.addEventListener(`load`, () => {
+      this.onResize(image);
+    });
   }
+  onResize() {}
   onAnswer() {}
 }
