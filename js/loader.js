@@ -15,19 +15,20 @@ const checkStatus = (response) => {
 
 const toJSON = (response) => response.json();
 
-export let loadedData;
+export const downloadedData = {};
 
 export default class Loader {
 
   static loadData() {
+
     window.fetch(DATA_URL).
     then(checkStatus).
     then((response) => {
       return response.json();
     }).
     then((data) => {
-      loadedData = data;
-      return loadedData;
+      downloadedData.questions = data;
+      return downloadedData;
     }).
     then(() => Application.introToGreeting()).
     catch(Application.showError);

@@ -6,7 +6,7 @@ import RulesScreen from './screens/rules';
 import GameScreen from './screens/game';
 import StatsScreen from './screens/stats';
 import ErrorScreen from './screens/error';
-import Loader, {loadedData} from './loader';
+import Loader, {downloadedData} from './loader';
 import ConfirmScreen from './screens/confirm';
 
 export default class Application {
@@ -17,7 +17,7 @@ export default class Application {
   }
 
   static getGameModel() {
-    this.gameModel = new GameModel(loadedData);
+    this.gameModel = new GameModel(downloadedData.questions);
   }
 
   static showIntro() {

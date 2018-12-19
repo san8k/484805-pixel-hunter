@@ -1,10 +1,9 @@
 import * as gameData from './data/game-data';
-import * as game from './screens/game';
 
 export default class GameModel {
-  constructor(loadedData, playerName = ``) {
+  constructor(downloadedData, playerName = ``) {
 
-    this.questionsList = loadedData;
+    this.questionsList = downloadedData;
     this.playerName = playerName;
     this.restart();
     this.getQuestionIndex();
@@ -40,10 +39,6 @@ export default class GameModel {
 
   restart() {
     this._state = Object.assign({}, gameData.INITIAL_GAME_DATA, {'answersList': []});
-  }
-
-  tick() {
-    this._state = game.tick(this._state);
   }
 
   resetTimer() {

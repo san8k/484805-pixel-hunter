@@ -1,5 +1,5 @@
 export default (container, image) => {
-  let imageProperties = {};
+  const imageProperties = {};
 
   if ((container.width / container.height) < (image.width / image.height)) {
     imageProperties.width = container.width;
