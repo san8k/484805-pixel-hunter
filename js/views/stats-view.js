@@ -9,13 +9,7 @@ export default class StatsView extends AbstractView {
   }
   get template() {
 
-    const getGameResult = () => {
-      if (this.results[this.results.length - 1].answers.length < gameData.ANSWERS_NUMBER) {
-        return `Поражение :(`;
-      } else {
-        return `Победа!`;
-      }
-    };
+    const getGameResult = () => this.results[this.results.length - 1].answers.length < gameData.ANSWERS_NUMBER ? `Поражение :(` : `Победа!`;
 
     const resultsTemplates = [];
     this.results.forEach((result, i) => {
@@ -51,21 +45,9 @@ export default class StatsView extends AbstractView {
     const slowAnswersCount = result.answers.filter((it) => it === `slow`).length;
     const gameScore = gameData.calculateScore(result.answers, result.lives);
 
-    const getResultTotal = () => {
-      if (gameScore !== -1) {
-        return gameScore;
-      } else {
-        return `FAIL`;
-      }
-    };
+    const getResultTotal = () => gameScore !== -1 ? gameScore : `FAIL`;
 
-    const getAnswersScore = () => {
-      if (gameScore !== -1) {
-        return (correctAnswersCount + slowAnswersCount + fastAnswersCount) * 100;
-      } else {
-        return `FAIL`;
-      }
-    };
+    const getAnswersScore = () => gameScore !== -1 ? (correctAnswersCount + slowAnswersCount + fastAnswersCount) * gameData.Points.CORRECT : `FAIL`;
 
     const getLives = () => {
       if (result.lives < 0) {

@@ -6,14 +6,14 @@ export default class GameModel {
     this.questionsList = downloadedData;
     this.playerName = playerName;
     this.restart();
-    this.getQuestionIndex();
+    this.setQuestionIndex();
   }
 
   get state() {
     return this._state;
   }
 
-  getQuestionIndex() {
+  setQuestionIndex() {
     this.index = 0;
   }
 
@@ -56,12 +56,14 @@ export default class GameModel {
   getAnswerSpeedType() {
     if (this.getAnswerTime() <= gameData.AnswerTime.FAST) {
       this._state.answersList.push(gameData.Results.FAST);
-    } else if (this.getAnswerTime() > gameData.AnswerTime.FAST && this.getAnswerTime() <= gameData.AnswerTime.SLOW) {
+    } else if (this.getAnswerTime() <= gameData.AnswerTime.SLOW) {
       this._state.answersList.push(gameData.Results.CORRECT);
     } else {
       this._state.answersList.push(gameData.Results.SLOW);
     }
   }
+
+  getTimerId() {}
 
 }
 

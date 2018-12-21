@@ -1,4 +1,4 @@
-import {createDomTemplate} from './create-dom-template';
+import {createDomTemplate} from './util';
 
 export default class AbstractView {
   get template() {}

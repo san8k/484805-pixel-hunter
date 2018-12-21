@@ -14,7 +14,7 @@ export default class TwoPicturesView extends AbstractView {
       <section class="game">
       <p class="game__task">${this.questionsList[this.questionIndex][`question`]}</p>
       <form class="game__content">
-        ${util.guessTemplate(this.questionsList[this.questionIndex], this.gameModel)}
+        ${util.getGuessTemplate(this.questionsList[this.questionIndex], this.gameModel)}
       </form>
       ${util.getAnswersProgress(this.gameModel._state)}
       </section>
@@ -29,13 +29,16 @@ export default class TwoPicturesView extends AbstractView {
         this.onResize(element);
       });
     });
-    gameForm.addEventListener(`change`, () => {
+    const onAnswerClick = () => {
       const answers = Array.from(gameForm.querySelectorAll(`input[type='radio']:checked`)).map((it) => it.value);
       if (answers.length === this.questionsList[this.questionIndex][`answers`].length) {
         this.onAnswer(answers);
+        gameForm.removeEventListener(`change`, onAnswerClick);
       }
-    });
+    };
+    gameForm.addEventListener(`change`, onAnswerClick);
   }
+
   onResize() {}
   onAnswer() {}
 }

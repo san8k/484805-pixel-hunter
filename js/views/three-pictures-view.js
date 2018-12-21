@@ -35,12 +35,14 @@ export default class ThreePicturesView extends AbstractView {
       });
     });
     options.forEach((element, i) => {
-      element.addEventListener(`click`, () => {
+      const onAnswerClick = () => {
         this.onAnswer(i);
-      });
+        element.removeEventListener(`click`, onAnswerClick);
+      };
+      element.addEventListener(`click`, onAnswerClick);
     });
-
   }
+
   onResize() {}
   onAnswer() {}
 }

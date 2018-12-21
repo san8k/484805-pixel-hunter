@@ -3,16 +3,22 @@ import * as settings from './settings';
 
 const mainElement = document.querySelector(`#main`);
 
+export const createDomTemplate = (string) => {
+  const div = document.createElement(`div`);
+  div.innerHTML = string;
+  return div;
+};
+
 export const changeScreen = (section) => {
   mainElement.innerHTML = ``;
   mainElement.appendChild(section);
 };
 
 export const showResults = (results) => {
-  const resultsNode = Array.from({length: gameData.ANSWERS_NUMBER}).map((it, i) => {
+  const resultsNodes = Array.from({length: gameData.ANSWERS_NUMBER}).map((it, i) => {
     return `<li class="stats__result stats__result--${results[i] || `unknown`}"></li>`;
   });
-  return resultsNode.join(``);
+  return resultsNodes.join(``);
 };
 
 export const getAnswersProgress = (state) => `
@@ -21,7 +27,7 @@ export const getAnswersProgress = (state) => `
   </ul>
   `;
 
-export const guessTemplate = (question, gameModel) => `
+export const getGuessTemplate = (question, gameModel) => `
 ${question[`answers`].map((it, i) => `
   <div class="game__option">
   <img src="${it.image.url}" alt="Option ${i + 1}" width="${it.image.width}" height="${it.image.height}">

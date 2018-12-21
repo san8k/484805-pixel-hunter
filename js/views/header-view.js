@@ -51,12 +51,12 @@ export default class HeaderView extends AbstractView {
     });
   }
 
-  onClickBack() {}
-
   updateTime() {
     this.timer.textContent = this.gameState.time;
     if (this.gameState.time <= BLINK_TIME) {
       this.timer.classList.add(`blink`);
     }
   }
+
+  onClickBack() {}
 }

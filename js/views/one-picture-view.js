@@ -14,7 +14,7 @@ export default class OnePictureView extends AbstractView {
       <section class="game">
       <p class="game__task">${this.questionsList[this.questionIndex][`question`]}</p>
       <form class="game__content  game__content--wide">
-        ${util.guessTemplate(this.questionsList[this.questionIndex], this.gameModel)}
+        ${util.getGuessTemplate(this.questionsList[this.questionIndex], this.gameModel)}
       </form>
       ${util.getAnswersProgress(this.gameModel._state)}
       </section>
@@ -25,15 +25,19 @@ export default class OnePictureView extends AbstractView {
     const gameForm = this.element.querySelector(`.game__content`);
     const answers = Array.from(gameForm.querySelectorAll(`input[type='radio']`));
     const image = gameForm.querySelector(`img`);
-    answers.forEach((element) => {
-      element.addEventListener(`change`, () => {
-        this.onAnswer(element.value);
-      });
-    });
     image.addEventListener(`load`, () => {
       this.onResize(image);
     });
+
+    answers.forEach((element) => {
+      const onAnswerClick = () => {
+        this.onAnswer(element.value);
+        element.removeEventListener(`change`, onAnswerClick);
+      };
+      element.addEventListener(`change`, onAnswerClick);
+    });
   }
+
   onResize() {}
   onAnswer() {}
 }

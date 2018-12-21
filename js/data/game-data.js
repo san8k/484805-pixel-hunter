@@ -1,7 +1,6 @@
 export const MAX_LEVEL = 10;
 export const ANSWERS_NUMBER = 10;
 
-
 export const AnswerTime = {
   FAST: 10,
   SLOW: 20,
@@ -27,7 +26,6 @@ export const Points = {
   SLOW: -50,
   LIFE_BONUS: 50
 };
-
 
 export const Results = {
   CORRECT: `correct`,

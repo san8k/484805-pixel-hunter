@@ -66,7 +66,7 @@ export default class Application {
   }
 
   static showConfirm() {
-    const confirmPopup = new ConfirmScreen();
+    const confirmPopup = new ConfirmScreen(this.gameModel.getTimerId());
     const body = document.querySelector(`body`);
     body.appendChild(confirmPopup);
   }

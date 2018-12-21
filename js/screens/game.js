@@ -12,7 +12,6 @@ export default class GameScreen {
   constructor(gameModel) {
     this.gameModel = gameModel;
     this.mainNode = document.createElement(`div`);
-    this.startTimer();
     this.updateContent();
     return this.mainNode;
   }
@@ -27,6 +26,10 @@ export default class GameScreen {
   }
 
   updateContent() {
+    this.startTimer();
+    this.gameModel.getTimerId = () => {
+      return this.timer;
+    };
     this.header = new HeaderView(this.gameModel._state);
     this.currentQuestion = this.changeQuestion(this.gameModel.questionsList[this.gameModel.index][`type`]);
     this.mainNode.innerHTML = ``;
@@ -53,11 +56,12 @@ export default class GameScreen {
 
   tick() {
     this.gameModel._state.time--;
-    this.header.updateTime();
     if (this.gameModel.isTimeOut()) {
       this.gameModel._state.answersList.push(gameData.Results.WRONG);
       this.gameModel.takeLife();
       this.checkState();
+    } else {
+      this.header.updateTime();
     }
   }
 
@@ -72,7 +76,6 @@ export default class GameScreen {
   }
 
   validateAnswers(answers) {
-
     switch (this.gameModel.questionsList[this.gameModel.index][`type`]) {
       case (`two-of-two`):
         if (answers[0] === this.gameModel.questionsList[this.gameModel.index][`answers`][0][`type`] && answers[1] === this.gameModel.questionsList[this.gameModel.index][`answers`][1][`type`]) {
@@ -104,14 +107,13 @@ export default class GameScreen {
 
   checkState() {
     this.stopTimer();
+    this.gameModel.resetTimer();
     this.gameModel.nextIndex();
     this.gameModel.nextLevel();
     if (this.gameModel.isDead() || this.gameModel.isMaxLevel()) {
       Application.showStats(this.gameModel);
     } else {
       this.updateContent();
-      this.gameModel.resetTimer();
-      this.startTimer();
     }
   }
 
